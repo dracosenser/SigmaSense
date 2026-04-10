@@ -1,0 +1,418 @@
+/* src/pages/LearnPage.module.css */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.pageHeader { text-align: center; margin-bottom: 32px; }
+.pageTitle {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--cyan);
+  letter-spacing: 3px;
+  margin-bottom: 6px;
+}
+.pageSub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text2);
+}
+
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 24px;
+  justify-content: center;
+}
+
+.filterBtn {
+  padding: 7px 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filterBtn:hover { color: var(--text); border-color: var(--text2); }
+.filterActive {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: rgba(0,240,255,0.06);
+}
+
+.topicsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px;
+}
+
+.lessonCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--acc, var(--cyan));
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.lessonCard:hover {
+  background: var(--panel2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.lcTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.lcCat {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+.lcBadge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--green);
+  background: rgba(0,255,136,0.08);
+  border: 1px solid rgba(0,255,136,0.2);
+  padding: 2px 6px;
+}
+.lcName {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+.lcHint {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.4;
+  flex: 1;
+}
+.lcFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+}
+.diffEASY { color: var(--green); }
+.diffMED  { color: var(--gold); }
+.diffHARD { color: var(--red); }
+.lcArrow { color: var(--acc, var(--cyan)); }
+
+/* Lesson player */
+.lessonPage {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 65px);
+  position: relative;
+  z-index: 1;
+}
+
+.lessonHeader {
+  display: flex;
+  align-items: center;
+  padding: 12px 28px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(5,10,20,0.95);
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.backBtn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: 7px 14px;
+  cursor: pointer;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.backBtn:hover { border-color: var(--cyan); color: var(--cyan); }
+
+.lessonMeta { flex: 1; }
+.lessonTitle {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  color: var(--cyan);
+  letter-spacing: 2px;
+}
+.lessonCat {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: var(--text2);
+  margin-top: 2px;
+}
+
+.stepPills {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.stepPill {
+  width: 24px;
+  height: 4px;
+  background: var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 2px;
+}
+.stepPill:hover { background: var(--text2); }
+.stepActive { background: var(--cyan) !important; }
+.stepDone   { background: var(--green) !important; }
+
+.stepContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.stepTitle {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+}
+
+.conceptBlock { display: flex; flex-direction: column; gap: 20px; }
+.conceptText {
+  font-size: 16px;
+  color: var(--text);
+  line-height: 1.7;
+}
+.formulaBox {
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--cyan);
+  padding: 16px 20px;
+  display: inline-block;
+}
+.formulaText {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 15px;
+  color: var(--cyan);
+  letter-spacing: 1px;
+}
+
+.exampleBlock { display: flex; flex-direction: column; gap: 20px; }
+.exProblem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 16px 20px;
+}
+.exLabel {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--text2);
+}
+.exQ {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 20px;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.exSteps { display: flex; flex-direction: column; gap: 10px; }
+.exStep {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  animation: fadeUp 0.3s ease both;
+}
+.exStepNum {
+  width: 24px;
+  height: 24px;
+  background: rgba(0,240,255,0.1);
+  border: 1px solid var(--cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: var(--cyan);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.exStepBody { flex: 1; }
+.exStepLabel { font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:2px; color:var(--text2); margin-bottom:3px; }
+.exStepAction { font-size: 14px; color: var(--text); }
+.exStepResult { font-family:'Share Tech Mono',monospace; font-size:13px; color:var(--gold); margin-top:3px; }
+
+.exAnswer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(0,255,136,0.05);
+  border: 1px solid rgba(0,255,136,0.2);
+  padding: 14px 20px;
+}
+.exAnswerLabel {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--green);
+}
+.exAnswerVal {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--green);
+}
+
+.tableBlock { overflow-x: auto; }
+.tableScroll { overflow-x: auto; }
+.dataTable { border-collapse: collapse; min-width: 100%; }
+.dataThRight {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: var(--cyan);
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  text-align: center;
+}
+.dataTd {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  color: var(--text);
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.dataTd:first-child { color: var(--gold); font-weight: 700; }
+
+.practiceBlock { display: flex; flex-direction: column; gap: 12px; }
+.practiceLabel {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--cyan);
+  margin-bottom: 4px;
+}
+.practiceRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.practiceQ {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 16px;
+  color: var(--text);
+  min-width: 180px;
+}
+.practiceInput {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 16px;
+  padding: 8px 14px;
+  outline: none;
+  width: 120px;
+  text-align: center;
+  transition: all 0.2s;
+}
+.practiceInput:focus { border-color: var(--cyan); }
+.pOk  { border-color: var(--green) !important; color: var(--green); }
+.pBad { border-color: var(--red) !important; color: var(--red); }
+.checkBtn {
+  padding: 8px 14px;
+  background: rgba(0,240,255,0.08);
+  border: 1px solid rgba(0,240,255,0.3);
+  color: var(--cyan);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+.checkBtn:hover { background: var(--cyan); color: var(--bg); }
+.practiceResult {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.stepNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 28px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.stepCounter {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: var(--text2);
+  letter-spacing: 2px;
+  min-width: 60px;
+  text-align: center;
+}
+.navBtn {
+  padding: 10px 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.navBtn:hover:not(:disabled) { border-color: var(--text); color: var(--text); }
+.navBtn:disabled { opacity: 0.3; cursor: not-allowed; }
+.navBtnPrimary {
+  padding: 10px 24px;
+  background: rgba(0,240,255,0.1);
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.navBtnPrimary:hover { background: var(--cyan); color: var(--bg); }
+.navBtnDone {
+  padding: 10px 24px;
+  background: rgba(0,255,136,0.1);
+  border: 1px solid var(--green);
+  color: var(--green);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.navBtnDone:hover { background: var(--green); color: var(--bg); }

@@ -1,0 +1,343 @@
+/* src/pages/PracticePage.module.css */
+.page {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 65px);
+  position: relative;
+  z-index: 1;
+}
+
+.pHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 28px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(5,10,20,0.95);
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+.backBtn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: 7px 14px;
+  cursor: pointer;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.backBtn:hover { border-color: var(--cyan); color: var(--cyan); }
+
+.pTitleBlock { text-align: center; flex: 1; }
+.pTopic {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  color: var(--cyan);
+  letter-spacing: 2px;
+}
+.pSub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: var(--text2);
+  margin-top: 3px;
+}
+
+.pStats {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.corner {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+}
+
+.timerWrap {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  margin-bottom: 24px;
+}
+
+.timerInside {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.qNum {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--text2);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.qText {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(20px, 4vw, 46px);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 2px;
+  line-height: 1.3;
+  text-align: center;
+  margin-bottom: 32px;
+  max-width: 700px;
+}
+
+.ansArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 440px;
+}
+
+.hintBox {
+  width: 100%;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--cyan);
+  padding: 10px 14px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.5;
+  text-align: center;
+  animation: fadeIn 0.2s ease;
+}
+
+.hintRow {
+  display: flex;
+  gap: 8px;
+}
+
+.hintBtn {
+  background: rgba(0,240,255,0.06);
+  border: 1px solid rgba(0,240,255,0.2);
+  color: var(--text2);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+}
+.hintBtn:hover { color: var(--cyan); border-color: var(--cyan); }
+
+.skipBtn {
+  background: rgba(255,51,102,0.06);
+  border: 1px solid rgba(255,51,102,0.2);
+  color: var(--text2);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+}
+.skipBtn:hover:not(:disabled) { color: var(--red); border-color: var(--red); }
+.skipBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.ansInput {
+  width: 100%;
+  background: var(--panel);
+  border: 2px solid var(--border);
+  color: var(--text);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 28px;
+  text-align: center;
+  padding: 16px;
+  outline: none;
+  transition: all 0.2s;
+  letter-spacing: 3px;
+}
+.ansInput:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,240,255,0.07); }
+.inputOk {
+  border-color: var(--green) !important;
+  color: var(--green);
+  box-shadow: 0 0 20px rgba(0,255,136,0.3) !important;
+}
+.inputBad {
+  border-color: var(--red) !important;
+  color: var(--red);
+  box-shadow: 0 0 20px rgba(255,51,102,0.3) !important;
+  animation: shake 0.3s ease;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, rgba(0,240,255,0.1), rgba(0,255,136,0.07));
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.submitBtn:hover:not(:disabled) { box-shadow: 0 0 20px rgba(0,240,255,0.3); }
+.submitBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.feedback {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: var(--text2);
+  text-align: center;
+  min-height: 18px;
+}
+.fbOk  { color: var(--green); }
+.fbBad { color: var(--red); }
+
+.progWrap {
+  width: 100%;
+  max-width: 480px;
+  margin-top: 20px;
+}
+.progLabels {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: var(--text2);
+  margin-bottom: 5px;
+}
+.progTrack {
+  height: 3px;
+  background: var(--border);
+}
+.progFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan), var(--green));
+  transition: width 0.4s ease;
+}
+
+/* Results */
+.resultsPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 65px);
+  padding: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.resPanel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 36px 32px;
+  max-width: 640px;
+  width: 100%;
+  position: relative;
+  text-align: center;
+}
+
+.resLabel {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--cyan);
+  margin-bottom: 4px;
+}
+
+.resTopic {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  margin-bottom: 8px;
+}
+
+.resRating {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 64px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.resDelta {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  margin: 6px 0 24px;
+}
+
+.resGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.qHist {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.qHistRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+  border-bottom: 1px solid rgba(26,58,92,0.4);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+}
+
+.qHistDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.qHistQ {
+  flex: 1;
+  color: var(--text2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.qHistAns { min-width: 80px; text-align: center; }
+.qHistMs  { color: var(--text3); min-width: 52px; text-align: right; }
+
+.resBtns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .pStats { display: none; }
+  .qText  { font-size: 22px; }
+  .resGrid { grid-template-columns: 1fr 1fr; }
+}

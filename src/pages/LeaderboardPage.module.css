@@ -1,0 +1,166 @@
+/* src/pages/LeaderboardPage.module.css */
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--cyan);
+  letter-spacing: 3px;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tab {
+  padding: 9px 14px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text2);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: -1px;
+}
+.tab:hover { color: var(--text); }
+.tabActive { color: var(--cyan); }
+
+.loading {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--text2);
+  text-align: center;
+  padding: 60px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.empty {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: var(--text2);
+  text-align: center;
+  padding: 60px;
+  border: 1px solid var(--border);
+  letter-spacing: 1px;
+}
+
+.error {
+  background: rgba(255,51,102,0.06);
+  border: 1px solid rgba(255,51,102,0.2);
+  color: var(--red);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.th {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.row {
+  border-bottom: 1px solid rgba(26,58,92,0.4);
+  transition: background 0.15s;
+}
+.row:hover { background: var(--panel2); }
+.youRow {
+  background: rgba(0,240,255,0.03);
+  border: 1px solid rgba(0,240,255,0.15);
+}
+
+.td {
+  padding: 12px 14px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.rank {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+}
+.rank1 { color: var(--gold); }
+.rank2 { color: #c0c0c0; }
+.rank3 { color: #cd7f32; }
+
+.nameCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--bg);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.playerName {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.youTag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: var(--cyan);
+  background: rgba(0,240,255,0.1);
+  border: 1px solid rgba(0,240,255,0.3);
+  padding: 2px 6px;
+  letter-spacing: 1px;
+}
+
+.ratingVal {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.sessions {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: var(--text2);
+}
+
+@media (max-width: 600px) {
+  .page { padding: 24px 16px 60px; }
+}

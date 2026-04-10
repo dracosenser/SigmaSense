@@ -1,0 +1,183 @@
+/* src/components/Layout.module.css */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 40px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(5,10,20,0.92);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-shrink: 0;
+  gap: 16px;
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.logoHex {
+  width: 36px;
+  height: 36px;
+  background: rgba(0,240,255,0.08);
+  border: 1.5px solid var(--cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 16px;
+  color: var(--cyan);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  animation: pulsehex 3s ease-in-out infinite;
+}
+
+@keyframes pulsehex {
+  0%, 100% { box-shadow: 0 0 12px rgba(0,240,255,0.3); }
+  50%       { box-shadow: 0 0 28px rgba(0,240,255,0.7); }
+}
+
+.logoText {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  background: linear-gradient(135deg, var(--cyan), var(--green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logoSub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 4px;
+  color: var(--text3);
+}
+
+.nav {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+}
+
+.navItem {
+  padding: 7px 14px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text2);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.navItem:hover {
+  color: var(--cyan);
+}
+
+.navActive {
+  padding: 7px 14px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  text-decoration: none;
+  border: 1px solid rgba(0,240,255,0.3);
+  background: rgba(0,240,255,0.06);
+}
+
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ratingBadge {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.userChip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 5px 12px 5px 5px;
+}
+
+.avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--bg);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.userName {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: var(--text);
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logoutBtn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text3);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+}
+
+.logoutBtn:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .header { padding: 12px 16px; }
+  .nav { gap: 0; }
+  .navItem, .navActive { padding: 6px 8px; font-size: 9px; }
+  .logoSub { display: none; }
+  .ratingBadge { display: none; }
+}
+
+@media (max-width: 600px) {
+  .userName { display: none; }
+}
