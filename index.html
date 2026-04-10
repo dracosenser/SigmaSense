@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/sigma.svg" />
@@ -13,4 +14,1511 @@
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
+=======
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SigmaSense — UIL Number Sense</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#050a14; --bg2:#080f1e; --panel:#0b1629; --panel2:#0f1e38;
+  --cyan:#00f0ff; --cyan2:#00b8cc; --green:#00ff88; --green2:#00cc6a;
+  --gold:#ffd700; --red:#ff3366; --purple:#9d4edd; --orange:#ff9f43;
+  --blue:#54a0ff; --pink:#ff6b9d;
+  --text:#c8daf0; --text2:#7a9bbf; --border:#1a3a5c;
+  --gcyan:0 0 20px rgba(0,240,255,0.4);
+  --ggreen:0 0 20px rgba(0,255,136,0.4);
+  --ggold:0 0 20px rgba(255,215,0,0.4);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,240,255,0.012) 2px,rgba(0,240,255,0.012) 4px);
+  pointer-events:none;z-index:9999;}
+.grid-bg{position:fixed;top:0;left:0;right:0;bottom:0;
+  background-image:linear-gradient(rgba(0,240,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,0.025) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;z-index:0;}
+
+/* ── SCREENS ── */
+.screen{display:none;position:fixed;inset:0;z-index:10;overflow-y:auto;}
+.screen.active{display:flex;flex-direction:column;}
+
+/* ── AUTH ── */
+#auth-screen{align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 30%,rgba(0,240,255,0.06) 0%,transparent 70%);}
+.auth-box{width:100%;max-width:420px;padding:20px;}
+.auth-logo{text-align:center;margin-bottom:40px;}
+.auth-logo-hex{width:70px;height:70px;margin:0 auto 16px;
+  background:rgba(0,240,255,0.08);border:2px solid var(--cyan);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',sans-serif;font-size:28px;color:var(--cyan);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  box-shadow:var(--gcyan);animation:pulsehex 3s ease-in-out infinite;}
+@keyframes pulsehex{0%,100%{box-shadow:var(--gcyan);}50%{box-shadow:0 0 50px rgba(0,240,255,0.8);}}
+.auth-logo-name{font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;letter-spacing:4px;
+  background:linear-gradient(135deg,var(--cyan),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.auth-logo-sub{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:5px;color:var(--text2);margin-top:4px;}
+
+.auth-panel{background:var(--panel);border:1px solid var(--border);padding:36px 32px;position:relative;}
+.auth-panel::before{content:attr(data-label);position:absolute;top:-1px;left:24px;
+  background:var(--panel);padding:0 10px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--cyan);}
+.auth-tabs{display:flex;margin-bottom:28px;border-bottom:1px solid var(--border);}
+.auth-tab{flex:1;padding:10px;text-align:center;cursor:pointer;
+  font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;
+  color:var(--text2);border-bottom:2px solid transparent;transition:all 0.2s;}
+.auth-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+.auth-field{margin-bottom:18px;}
+.auth-label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--text2);margin-bottom:8px;display:block;}
+.auth-input{width:100%;background:var(--bg2);border:1px solid var(--border);
+  color:var(--text);font-family:'Share Tech Mono',monospace;font-size:14px;
+  padding:12px 16px;outline:none;transition:border-color 0.2s;}
+.auth-input:focus{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(0,240,255,0.08);}
+.auth-btn{width:100%;padding:16px;margin-top:8px;
+  background:linear-gradient(135deg,rgba(0,240,255,0.15),rgba(0,255,136,0.1));
+  border:1px solid var(--cyan);color:var(--cyan);
+  font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;
+  cursor:pointer;transition:all 0.2s;}
+.auth-btn:hover{background:var(--cyan);color:var(--bg);box-shadow:var(--gcyan);}
+.auth-err{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--red);margin-top:10px;text-align:center;min-height:16px;}
+.auth-guest{text-align:center;margin-top:16px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text2);}
+.auth-guest span{color:var(--cyan);cursor:pointer;border-bottom:1px solid transparent;transition:border-color 0.2s;}
+.auth-guest span:hover{border-bottom-color:var(--cyan);}
+
+/* ── HEADER ── */
+.app-header{display:flex;align-items:center;justify-content:space-between;
+  padding:16px 40px;border-bottom:1px solid var(--border);
+  background:rgba(5,10,20,0.9);backdrop-filter:blur(10px);
+  position:sticky;top:0;z-index:100;flex-shrink:0;}
+.logo-row{display:flex;align-items:center;gap:12px;}
+.logo-hex{width:34px;height:34px;background:rgba(0,240,255,0.08);border:1px solid var(--cyan);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',sans-serif;font-size:14px;color:var(--cyan);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
+.logo-txt{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;letter-spacing:3px;
+  background:linear-gradient(135deg,var(--cyan),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.nav-pills{display:flex;gap:4px;}
+.nav-pill{padding:7px 16px;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:13px;
+  font-weight:600;letter-spacing:2px;color:var(--text2);border:1px solid transparent;transition:all 0.2s;}
+.nav-pill:hover{color:var(--cyan);}
+.nav-pill.active{color:var(--cyan);border-color:rgba(0,240,255,0.3);background:rgba(0,240,255,0.05);}
+.header-user{display:flex;align-items:center;gap:12px;}
+.user-badge{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--border);padding:6px 14px;}
+.user-avatar{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--purple));
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--bg);}
+.user-name{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--text);}
+.logout-btn{padding:6px 12px;border:1px solid var(--border);background:none;color:var(--text2);
+  font-family:'Share Tech Mono',monospace;font-size:10px;cursor:pointer;transition:all 0.2s;letter-spacing:1px;}
+.logout-btn:hover{border-color:var(--red);color:var(--red);}
+
+/* ── MAIN CONTENT AREAS ── */
+.view{display:none;}
+.view.active{display:block;}
+
+/* ── HUB ── */
+.hub-hero{text-align:center;padding:60px 40px 32px;}
+.hub-hero-label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:6px;color:var(--cyan);margin-bottom:16px;
+  opacity:0;animation:fadeUp 0.5s 0.1s ease forwards;}
+.hub-title{font-family:'Orbitron',sans-serif;font-size:clamp(32px,5vw,64px);font-weight:900;line-height:1.1;margin-bottom:12px;
+  opacity:0;animation:fadeUp 0.5s 0.2s ease forwards;}
+.hub-title .t1{color:var(--text);}
+.hub-title .t2{background:linear-gradient(90deg,var(--cyan),var(--green),var(--cyan));background-size:200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite;}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+.hub-sub{font-size:15px;color:var(--text2);opacity:0;animation:fadeUp 0.5s 0.3s ease forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+.hub-stats-row{display:flex;gap:1px;max-width:900px;margin:0 auto 48px;flex-wrap:wrap;}
+.hub-stat{flex:1;min-width:140px;background:var(--panel);border:1px solid var(--border);padding:18px 24px;text-align:center;position:relative;}
+.hub-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);}
+.hub-stat-val{font-family:'Orbitron',sans-serif;font-size:26px;font-weight:900;color:var(--gold);}
+.hub-stat-label{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--text2);margin-top:4px;}
+
+/* Radar + legend */
+.radar-section{display:flex;gap:32px;max-width:1100px;margin:0 auto;padding:0 40px 48px;flex-wrap:wrap;}
+.radar-wrap{flex:0 0 360px;background:var(--panel);border:1px solid var(--border);padding:24px;position:relative;}
+.radar-wrap::before{content:'SKILL MATRIX';position:absolute;top:-1px;left:16px;
+  background:var(--panel);padding:0 8px;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--cyan);}
+.radar-svg{width:100%;}
+.radar-legend{flex:1;min-width:260px;display:grid;grid-template-columns:1fr 1fr;gap:6px;align-content:start;}
+.leg-item{background:var(--panel);border:1px solid var(--border);padding:9px 12px;cursor:pointer;
+  transition:all 0.2s;display:flex;align-items:center;gap:9px;position:relative;overflow:hidden;}
+.leg-item::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;}
+.leg-item:hover{background:var(--panel2);transform:translateX(2px);}
+.leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.leg-name{font-size:12px;font-weight:600;color:var(--text);flex:1;font-family:'Rajdhani',sans-serif;letter-spacing:0.5px;}
+.leg-val{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--gold);}
+
+/* Section headers */
+.sec-head{max-width:1100px;margin:0 auto;padding:0 40px 16px;display:flex;align-items:center;gap:16px;}
+.sec-title{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:4px;color:var(--cyan);white-space:nowrap;}
+.sec-line{flex:1;height:1px;background:linear-gradient(90deg,var(--cyan),transparent);}
+
+/* Topic grid */
+.topics-grid{max-width:1100px;margin:0 auto;padding:0 40px 60px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+.topic-card{background:var(--panel);border:1px solid var(--border);padding:18px 20px;cursor:pointer;
+  transition:all 0.22s;position:relative;overflow:hidden;}
+.topic-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0;transition:opacity 0.3s;}
+.topic-card:hover::before{opacity:1;}
+.topic-card:hover{border-color:rgba(0,240,255,0.35);background:var(--panel2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,240,255,0.08);}
+.tc-num{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text2);letter-spacing:2px;margin-bottom:6px;}
+.tc-name{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;letter-spacing:0.5px;}
+.tc-cat{font-size:11px;color:var(--text2);letter-spacing:1px;margin-bottom:12px;}
+.tc-bottom{display:flex;align-items:center;gap:8px;}
+.tc-bar{flex:1;height:3px;background:rgba(255,255,255,0.07);position:relative;overflow:hidden;}
+.tc-fill{position:absolute;top:0;left:0;bottom:0;transition:width 0.8s ease;}
+.tc-val{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--gold);min-width:36px;text-align:right;}
+.tc-diff{font-family:'Share Tech Mono',monospace;font-size:9px;padding:2px 6px;border:1px solid;letter-spacing:1px;}
+.diff-easy{color:var(--green);border-color:rgba(0,255,136,0.3);}
+.diff-med{color:var(--gold);border-color:rgba(255,215,0,0.3);}
+.diff-hard{color:var(--red);border-color:rgba(255,51,102,0.3);}
+.tc-play{width:26px;height:26px;background:rgba(0,240,255,0.08);border:1px solid rgba(0,240,255,0.25);
+  display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:9px;transition:all 0.2s;flex-shrink:0;}
+.topic-card:hover .tc-play{background:var(--cyan);color:var(--bg);}
+
+/* ── FULL TEST ── */
+.fulltest-view{max-width:800px;margin:0 auto;padding:40px;}
+.ft-header{text-align:center;margin-bottom:40px;}
+.ft-title{font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--cyan);letter-spacing:3px;margin-bottom:8px;}
+.ft-sub{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text2);letter-spacing:2px;}
+.ft-options{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;}
+.ft-option{background:var(--panel);border:1px solid var(--border);padding:24px;cursor:pointer;
+  transition:all 0.2s;text-align:center;position:relative;}
+.ft-option:hover,.ft-option.selected{border-color:var(--cyan);background:var(--panel2);}
+.ft-option.selected::after{content:'✓';position:absolute;top:10px;right:14px;color:var(--cyan);font-size:14px;}
+.ft-opt-title{font-family:'Orbitron',sans-serif;font-size:14px;color:var(--text);margin-bottom:6px;letter-spacing:1px;}
+.ft-opt-desc{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:1px;}
+.ft-start-btn{width:100%;padding:18px;
+  background:linear-gradient(135deg,rgba(0,240,255,0.15),rgba(0,255,136,0.1));
+  border:1px solid var(--cyan);color:var(--cyan);
+  font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;letter-spacing:5px;cursor:pointer;transition:all 0.2s;}
+.ft-start-btn:hover{background:var(--cyan);color:var(--bg);box-shadow:var(--gcyan);}
+.ft-rules{background:var(--panel);border:1px solid var(--border);padding:20px;margin-bottom:24px;}
+.ft-rules-title{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--cyan);margin-bottom:12px;}
+.ft-rule{font-size:13px;color:var(--text2);margin-bottom:6px;padding-left:16px;position:relative;}
+.ft-rule::before{content:'›';position:absolute;left:0;color:var(--cyan);}
+
+/* ── LEADERBOARD ── */
+.lb-view{max-width:800px;margin:0 auto;padding:40px;}
+.lb-title{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:var(--cyan);letter-spacing:3px;margin-bottom:32px;text-align:center;}
+.lb-tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:0;}
+.lb-tab{padding:10px 20px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;
+  color:var(--text2);border-bottom:2px solid transparent;transition:all 0.2s;}
+.lb-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+.lb-table{width:100%;border-collapse:collapse;}
+.lb-th{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--text2);
+  padding:10px 14px;border-bottom:1px solid var(--border);text-align:left;}
+.lb-row{border-bottom:1px solid rgba(26,58,92,0.5);transition:background 0.2s;}
+.lb-row:hover{background:var(--panel2);}
+.lb-td{padding:12px 14px;font-size:14px;color:var(--text);}
+.lb-rank{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:900;width:40px;}
+.lb-rank.gold{color:var(--gold);}
+.lb-rank.silver{color:#aaa;}
+.lb-rank.bronze{color:#cd7f32;}
+.lb-name-cell{display:flex;align-items:center;gap:10px;}
+.lb-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--bg);}
+.lb-rating-cell{font-family:'Orbitron',sans-serif;font-weight:700;font-size:16px;color:var(--gold);}
+.lb-time-cell{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--text2);}
+.lb-you{background:rgba(0,240,255,0.04);border:1px solid rgba(0,240,255,0.2);}
+.lb-you .lb-name-cell::after{content:'YOU';font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--cyan);
+  background:rgba(0,240,255,0.1);padding:2px 6px;margin-left:4px;}
+
+/* ── PRACTICE SCREEN (full overlay) ── */
+#practice-screen{position:fixed;inset:0;z-index:200;background:var(--bg);flex-direction:column;}
+.practice-header{display:flex;align-items:center;justify-content:space-between;
+  padding:14px 28px;border-bottom:1px solid var(--border);background:rgba(5,10,20,0.95);flex-shrink:0;}
+.p-back{display:flex;align-items:center;gap:8px;background:none;border:1px solid var(--border);
+  color:var(--text2);padding:7px 14px;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:13px;letter-spacing:1px;transition:all 0.2s;}
+.p-back:hover{border-color:var(--cyan);color:var(--cyan);}
+.p-title-block{text-align:center;}
+.p-topic{font-family:'Orbitron',sans-serif;font-size:14px;color:var(--cyan);letter-spacing:2px;}
+.p-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text2);margin-top:3px;}
+.p-ctrl-row{display:flex;gap:10px;}
+.p-stat{background:var(--panel);border:1px solid var(--border);padding:5px 12px;text-align:center;}
+.p-stat-l{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--text2);letter-spacing:2px;}
+.p-stat-v{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;}
+.p-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;position:relative;overflow:hidden;}
+.corner{position:absolute;width:50px;height:50px;}
+.c-tl{top:16px;left:16px;border-top:2px solid rgba(0,240,255,0.4);border-left:2px solid rgba(0,240,255,0.4);}
+.c-tr{top:16px;right:16px;border-top:2px solid rgba(0,240,255,0.4);border-right:2px solid rgba(0,240,255,0.4);}
+.c-bl{bottom:16px;left:16px;border-bottom:2px solid rgba(0,240,255,0.4);border-left:2px solid rgba(0,240,255,0.4);}
+.c-br{bottom:16px;right:16px;border-bottom:2px solid rgba(0,240,255,0.4);border-right:2px solid rgba(0,240,255,0.4);}
+
+.timer-wrap{position:relative;width:90px;height:90px;margin-bottom:28px;}
+.timer-svg{transform:rotate(-90deg);}
+.t-bg{fill:none;stroke:var(--border);stroke-width:4;}
+.t-fg{fill:none;stroke:var(--cyan);stroke-width:4;stroke-linecap:round;stroke-dasharray:251;stroke-dashoffset:0;transition:stroke-dashoffset 0.08s linear,stroke 0.3s;}
+.timer-inside{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;line-height:1;}
+.t-sec{font-family:'Orbitron',monospace;font-size:20px;font-weight:700;color:var(--cyan);}
+.t-ms{display:block;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text2);margin-top:2px;}
+
+.q-num{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--text2);margin-bottom:14px;text-align:center;}
+.q-text{font-family:'Orbitron',sans-serif;font-size:clamp(22px,4vw,50px);font-weight:700;
+  color:var(--text);letter-spacing:2px;line-height:1.3;text-align:center;margin-bottom:36px;max-width:700px;}
+
+.ans-area{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;max-width:460px;}
+.ans-input{width:100%;background:var(--panel);border:2px solid var(--border);
+  color:var(--text);font-family:'Share Tech Mono',monospace;font-size:26px;
+  text-align:center;padding:16px;outline:none;transition:all 0.2s;letter-spacing:3px;}
+.ans-input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,240,255,0.08);}
+.ans-input.correct{border-color:var(--green);color:var(--green);box-shadow:var(--ggreen);}
+.ans-input.wrong{border-color:var(--red);color:var(--red);box-shadow:0 0 20px rgba(255,51,102,0.3);animation:shake 0.3s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.submit-btn{width:100%;padding:14px;
+  background:linear-gradient(135deg,rgba(0,240,255,0.12),rgba(0,255,136,0.08));
+  border:1px solid var(--cyan);color:var(--cyan);
+  font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;letter-spacing:4px;cursor:pointer;transition:all 0.2s;}
+.submit-btn:hover{box-shadow:var(--gcyan);}
+.hint-row{display:flex;gap:8px;width:100%;justify-content:center;}
+.hint-btn{background:rgba(0,240,255,0.06);border:1px solid rgba(0,240,255,0.2);color:var(--text2);
+  font-family:'Share Tech Mono',monospace;font-size:10px;padding:5px 12px;cursor:pointer;transition:all 0.2s;}
+.hint-btn:hover{color:var(--cyan);border-color:var(--cyan);}
+.skip-btn{background:rgba(255,51,102,0.06);border:1px solid rgba(255,51,102,0.2);color:var(--text2);
+  font-family:'Share Tech Mono',monospace;font-size:10px;padding:5px 12px;cursor:pointer;transition:all 0.2s;}
+.skip-btn:hover{color:var(--red);border-color:var(--red);}
+.hint-text{font-family:'Rajdhani',sans-serif;font-size:13px;color:var(--text2);
+  background:var(--panel2);border:1px solid var(--border);padding:12px 16px;width:100%;line-height:1.5;
+  display:none;text-align:center;}
+.feedback{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--text2);text-align:center;min-height:18px;}
+.feedback.ok{color:var(--green);}
+.feedback.bad{color:var(--red);}
+
+.prog-wrap{width:100%;max-width:500px;margin-top:20px;}
+.prog-labels{display:flex;justify-content:space-between;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text2);margin-bottom:5px;}
+.prog-track{height:3px;background:var(--border);}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width 0.4s ease;}
+
+/* ── RESULTS ── */
+#results-screen{position:fixed;inset:0;z-index:300;background:rgba(5,10,20,0.97);
+  align-items:center;justify-content:center;overflow-y:auto;padding:24px;}
+.res-panel{background:var(--panel);border:1px solid var(--border);padding:40px 36px;
+  max-width:680px;width:100%;position:relative;text-align:center;}
+.res-panel::before{content:'SESSION COMPLETE';position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+  background:var(--panel);padding:0 16px;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--cyan);}
+.res-topic{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--text2);margin-bottom:8px;}
+.res-rating{font-family:'Orbitron',sans-serif;font-size:64px;font-weight:900;color:var(--gold);
+  line-height:1;text-shadow:0 0 40px rgba(255,215,0,0.4);}
+.res-delta{font-family:'Share Tech Mono',monospace;font-size:13px;margin:6px 0 28px;}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.res-stat{background:var(--panel2);border:1px solid var(--border);padding:14px;}
+.res-stat-l{font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--text2);margin-bottom:5px;}
+.res-stat-v{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:700;}
+.q-hist{max-height:180px;overflow-y:auto;text-align:left;margin-bottom:20px;border:1px solid var(--border);}
+.q-hist-row{display:flex;align-items:center;gap:10px;padding:7px 12px;border-bottom:1px solid rgba(26,58,92,0.4);
+  font-family:'Share Tech Mono',monospace;font-size:10px;}
+.qh-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.qh-q{flex:1;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.qh-ans{min-width:60px;text-align:center;}
+.qh-t{color:var(--text2);min-width:55px;text-align:right;}
+.res-btns{display:flex;gap:10px;justify-content:center;}
+.rbtn{padding:12px 28px;border:1px solid;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;transition:all 0.2s;}
+.rbtn-p{background:rgba(0,240,255,0.08);border-color:var(--cyan);color:var(--cyan);}
+.rbtn-p:hover{background:var(--cyan);color:var(--bg);}
+.rbtn-s{background:transparent;border-color:var(--border);color:var(--text2);}
+.rbtn-s:hover{border-color:var(--text);color:var(--text);}
+
+/* ── FULL TEST RUNNING ── */
+#fulltest-screen{position:fixed;inset:0;z-index:200;background:var(--bg);flex-direction:column;}
+.ft-run-header{display:flex;align-items:center;justify-content:space-between;
+  padding:12px 24px;border-bottom:1px solid var(--border);background:rgba(5,10,20,0.95);flex-shrink:0;}
+.ft-progress-bar{height:3px;background:var(--border);flex:1;margin:0 20px;position:relative;}
+.ft-progress-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width 0.4s;}
+.ft-label{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text2);}
+.ft-timer-big{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:var(--cyan);}
+.ft-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;position:relative;}
+.ft-question-box{max-width:800px;width:100%;text-align:center;}
+.ft-q-meta{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:3px;margin-bottom:16px;}
+.ft-q-text{font-family:'Orbitron',sans-serif;font-size:clamp(18px,3.5vw,44px);font-weight:700;
+  color:var(--text);letter-spacing:1px;line-height:1.3;margin-bottom:28px;}
+.ft-ans-input{background:var(--panel);border:2px solid var(--border);color:var(--text);
+  font-family:'Share Tech Mono',monospace;font-size:22px;text-align:center;
+  padding:14px 20px;outline:none;width:300px;letter-spacing:3px;transition:all 0.2s;}
+.ft-ans-input:focus{border-color:var(--cyan);}
+.ft-next-btn{display:block;width:300px;margin-top:12px;padding:12px;
+  background:rgba(0,240,255,0.08);border:1px solid var(--cyan);color:var(--cyan);
+  font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;cursor:pointer;transition:all 0.2s;}
+.ft-next-btn:hover{background:var(--cyan);color:var(--bg);}
+.ft-skip{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text2);
+  margin-top:10px;cursor:pointer;border-bottom:1px solid transparent;transition:all 0.2s;display:inline-block;}
+.ft-skip:hover{color:var(--red);border-bottom-color:var(--red);}
+
+/* ── FULL TEST RESULTS ── */
+#ft-results-screen{position:fixed;inset:0;z-index:400;background:rgba(5,10,20,0.98);
+  flex-direction:column;align-items:center;justify-content:center;overflow-y:auto;padding:24px;}
+.ftr-panel{background:var(--panel);border:1px solid var(--border);max-width:800px;width:100%;padding:40px;position:relative;}
+.ftr-panel::before{content:'10-MINUTE TEST COMPLETE';position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+  background:var(--panel);padding:0 16px;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--gold);}
+.ftr-score{font-family:'Orbitron',sans-serif;font-size:72px;font-weight:900;color:var(--gold);text-align:center;
+  text-shadow:0 0 60px rgba(255,215,0,0.5);line-height:1;}
+.ftr-score-label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--text2);text-align:center;margin-bottom:24px;}
+.ftr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0;}
+.ftr-stat{background:var(--panel2);border:1px solid var(--border);padding:14px;text-align:center;}
+.ftr-stat-l{font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--text2);margin-bottom:4px;}
+.ftr-stat-v{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:700;color:var(--cyan);}
+.ftr-breakdown{margin-top:16px;max-height:260px;overflow-y:auto;border:1px solid var(--border);}
+.ftr-br-row{display:flex;gap:8px;padding:6px 12px;border-bottom:1px solid rgba(26,58,92,0.3);
+  font-family:'Share Tech Mono',monospace;font-size:10px;align-items:center;}
+.ftr-br-n{width:28px;color:var(--text2);}
+.ftr-br-q{flex:1;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ftr-br-ans{width:80px;text-align:center;}
+.ftr-br-t{width:50px;text-align:right;color:var(--text2);}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;right:24px;z-index:9000;
+  background:var(--panel2);border:1px solid var(--border);padding:12px 18px;
+  font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text);max-width:280px;
+  transform:translateY(80px);opacity:0;transition:all 0.3s;}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* Cat accent colors */
+.cat-mult{--acc:var(--cyan);}
+.cat-div{--acc:var(--orange);}
+.cat-mem{--acc:var(--purple);}
+.cat-misc{--acc:var(--green);}
+.cat-alg{--acc:var(--gold);}
+.cat-calc{--acc:var(--red);}
+.cat-base{--acc:var(--blue);}
+.cat-fib{--acc:var(--pink);}
+.topic-card{--acc:var(--cyan);}
+.topic-card .tc-fill{background:linear-gradient(90deg,var(--acc),transparent);}
+.topic-card .tc-play{border-color:rgba(var(--acc),0.25);}
+
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);}
+::-webkit-scrollbar-thumb:hover{background:var(--cyan2);}
+
+@media(max-width:768px){
+  .app-header{padding:12px 16px;}
+  .nav-pills{display:none;}
+  .topics-grid{grid-template-columns:1fr 1fr;padding:0 16px 40px;}
+  .radar-section{padding:0 16px 32px;}
+  .radar-wrap{flex:0 0 100%;}
+  .hub-hero{padding:32px 16px 20px;}
+  .sec-head{padding:0 16px 12px;}
+  .res-grid{grid-template-columns:1fr 1fr;}
+  .ftr-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<!-- ════════════════ AUTH SCREEN ════════════════ -->
+<div id="auth-screen" class="screen active">
+  <div class="auth-box">
+    <div class="auth-logo">
+      <div class="auth-logo-hex">Σ</div>
+      <div class="auth-logo-name">SIGMASENSE</div>
+      <div class="auth-logo-sub">UIL NUMBER SENSE TRAINER</div>
+    </div>
+    <div class="auth-panel" data-label="// ACCESS TERMINAL">
+      <div class="auth-tabs">
+        <div class="auth-tab active" onclick="switchAuthTab('login')">LOGIN</div>
+        <div class="auth-tab" onclick="switchAuthTab('signup')">SIGN UP</div>
+      </div>
+      <!-- Login form -->
+      <div id="login-form">
+        <div class="auth-field">
+          <label class="auth-label">USERNAME</label>
+          <input class="auth-input" id="login-user" type="text" placeholder="enter username" autocomplete="username">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">PASSWORD</label>
+          <input class="auth-input" id="login-pass" type="password" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <button class="auth-btn" onclick="doLogin()">AUTHENTICATE ▶</button>
+        <div class="auth-err" id="login-err"></div>
+      </div>
+      <!-- Signup form -->
+      <div id="signup-form" style="display:none">
+        <div class="auth-field">
+          <label class="auth-label">USERNAME</label>
+          <input class="auth-input" id="signup-user" type="text" placeholder="choose a callsign" autocomplete="username">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">DISPLAY NAME</label>
+          <input class="auth-input" id="signup-name" type="text" placeholder="your name">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">PASSWORD</label>
+          <input class="auth-input" id="signup-pass" type="password" placeholder="create password" autocomplete="new-password">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">CONFIRM PASSWORD</label>
+          <input class="auth-input" id="signup-pass2" type="password" placeholder="confirm password" autocomplete="new-password">
+        </div>
+        <button class="auth-btn" onclick="doSignup()">CREATE ACCOUNT ▶</button>
+        <div class="auth-err" id="signup-err"></div>
+      </div>
+      <div class="auth-guest">or <span onclick="guestLogin()">continue as guest</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ MAIN APP ════════════════ -->
+<div id="app-screen" class="screen">
+  <header class="app-header">
+    <div class="logo-row">
+      <div class="logo-hex">Σ</div>
+      <div class="logo-txt">SIGMASENSE</div>
+    </div>
+    <nav class="nav-pills">
+      <div class="nav-pill active" onclick="showView('hub')">HUB</div>
+      <div class="nav-pill" onclick="showView('fulltest')">FULL TEST</div>
+      <div class="nav-pill" onclick="showView('leaderboard')">LEADERBOARD</div>
+    </nav>
+    <div class="header-user">
+      <div class="user-badge">
+        <div class="user-avatar" id="user-avatar-hdr">?</div>
+        <div class="user-name" id="user-name-hdr">GUEST</div>
+      </div>
+      <button class="logout-btn" onclick="doLogout()">LOGOUT</button>
+    </div>
+  </header>
+
+  <!-- HUB VIEW -->
+  <div id="view-hub" class="view active" style="overflow-y:auto;flex:1;">
+    <div class="hub-hero">
+      <div class="hub-hero-label">// TRAINING INTERFACE ACTIVE</div>
+      <h1 class="hub-title"><span class="t1">TRAIN FASTER.</span><br><span class="t2">SCORE HIGHER.</span></h1>
+      <p class="hub-sub">Adaptive drills for every UIL Number Sense topic. 500–2500 rating by speed &amp; accuracy.</p>
+    </div>
+    <div class="hub-stats-row" id="hub-stats-row" style="max-width:900px;margin:0 auto 32px;padding:0 40px;display:flex;gap:1px;flex-wrap:wrap;"></div>
+    <div class="radar-section">
+      <div class="radar-wrap"><svg class="radar-svg" viewBox="0 0 350 340" id="radar-svg"></svg></div>
+      <div class="radar-legend" id="radar-legend"></div>
+    </div>
+    <div class="sec-head"><div class="sec-title">// TOPIC MODULES</div><div class="sec-line"></div></div>
+    <div class="topics-grid" id="topics-grid"></div>
+  </div>
+
+  <!-- FULL TEST VIEW -->
+  <div id="view-fulltest" class="view" style="overflow-y:auto;flex:1;">
+    <div class="fulltest-view">
+      <div class="ft-header">
+        <div class="ft-title">FULL 10-MINUTE TEST</div>
+        <div class="ft-sub">// SIMULATE THE ACTUAL UIL NUMBER SENSE EXAM</div>
+      </div>
+      <div class="ft-rules">
+        <div class="ft-rules-title">TEST PARAMETERS</div>
+        <div class="ft-rule">80 questions drawn from all topic areas</div>
+        <div class="ft-rule">10 minutes total — 7.5 seconds per question target</div>
+        <div class="ft-rule">UIL scoring: +4 correct, −1 wrong, 0 skipped</div>
+        <div class="ft-rule">Final score updates all topic ratings</div>
+        <div class="ft-rule">Results submitted to global leaderboard</div>
+      </div>
+      <div style="margin-bottom:20px;">
+        <div class="sec-title" style="margin-bottom:12px;">SELECT DIFFICULTY</div>
+        <div class="ft-options" id="ft-diff-opts">
+          <div class="ft-option selected" data-diff="middle" onclick="selectFTDiff(this)">
+            <div class="ft-opt-title">MIDDLE SCHOOL</div>
+            <div class="ft-opt-desc">Basic arithmetic · Fractions · Memorization</div>
+          </div>
+          <div class="ft-option" data-diff="high" onclick="selectFTDiff(this)">
+            <div class="ft-opt-title">HIGH SCHOOL</div>
+            <div class="ft-opt-desc">All topics · Calculus · Advanced algebra</div>
+          </div>
+        </div>
+      </div>
+      <button class="ft-start-btn" onclick="startFullTest()">BEGIN TEST ▶</button>
+    </div>
+  </div>
+
+  <!-- LEADERBOARD VIEW -->
+  <div id="view-leaderboard" class="view" style="overflow-y:auto;flex:1;">
+    <div class="lb-view">
+      <div class="lb-title">// GLOBAL LEADERBOARD</div>
+      <div class="lb-tabs">
+        <div class="lb-tab active" onclick="switchLBTab('overall',this)">OVERALL RATING</div>
+        <div class="lb-tab" onclick="switchLBTab('fulltest',this)">FULL TEST SCORE</div>
+        <div class="lb-tab" onclick="switchLBTab('speed',this)">FASTEST AVG</div>
+      </div>
+      <table class="lb-table">
+        <thead>
+          <tr>
+            <th class="lb-th">#</th>
+            <th class="lb-th">PLAYER</th>
+            <th class="lb-th">RATING</th>
+            <th class="lb-th">SESSIONS</th>
+            <th class="lb-th">JOINED</th>
+          </tr>
+        </thead>
+        <tbody id="lb-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ PRACTICE SCREEN ════════════════ -->
+<div id="practice-screen" class="screen">
+  <div class="practice-header">
+    <button class="p-back" onclick="exitPractice()">◀ BACK</button>
+    <div class="p-title-block">
+      <div class="p-topic" id="p-topic"></div>
+      <div class="p-sub" id="p-sub">Q 0/10</div>
+    </div>
+    <div class="p-ctrl-row">
+      <div class="p-stat"><div class="p-stat-l">ACCURACY</div><div class="p-stat-v" id="p-acc" style="color:var(--gold)">—%</div></div>
+      <div class="p-stat"><div class="p-stat-l">AVG MS</div><div class="p-stat-v" id="p-avgms" style="color:var(--cyan)">—</div></div>
+      <div class="p-stat"><div class="p-stat-l">RATING</div><div class="p-stat-v" id="p-rtlive" style="color:var(--gold)">—</div></div>
+    </div>
+  </div>
+  <div class="p-main">
+    <div class="corner c-tl"></div><div class="corner c-tr"></div>
+    <div class="corner c-bl"></div><div class="corner c-br"></div>
+    <div class="timer-wrap">
+      <svg class="timer-svg" viewBox="0 0 90 90" width="90" height="90">
+        <circle class="t-bg" cx="45" cy="45" r="40"/>
+        <circle class="t-fg" id="t-fg" cx="45" cy="45" r="40"/>
+      </svg>
+      <div class="timer-inside">
+        <span class="t-sec" id="t-sec">—</span>
+        <span class="t-ms" id="t-ms">ms</span>
+      </div>
+    </div>
+    <div class="q-num" id="q-num">QUESTION 1 / 10</div>
+    <div class="q-text" id="q-text">Loading...</div>
+    <div class="ans-area">
+      <div class="hint-row">
+        <button class="hint-btn" onclick="toggleHint()">💡 HINT</button>
+        <button class="skip-btn" onclick="skipQ()">SKIP ⟶</button>
+      </div>
+      <div class="hint-text" id="hint-text"></div>
+      <input class="ans-input" id="ans-input" type="text" placeholder="ANSWER" autocomplete="off" inputmode="decimal" onkeydown="handleKey(event)">
+      <button class="submit-btn" onclick="submitAnswer()">SUBMIT ANSWER  ▶</button>
+      <div class="feedback" id="feedback"></div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-labels"><span id="prog-l">PROGRESS</span><span id="prog-pct">0%</span></div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ RESULTS SCREEN ════════════════ -->
+<div id="results-screen" class="screen">
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;">
+    <div class="res-panel">
+      <div class="res-topic" id="res-topic">TOPIC</div>
+      <div class="res-rating" id="res-rating">—</div>
+      <div class="res-delta" id="res-delta"></div>
+      <div class="res-grid">
+        <div class="res-stat"><div class="res-stat-l">CORRECT</div><div class="res-stat-v" id="res-correct" style="color:var(--green)">—</div></div>
+        <div class="res-stat"><div class="res-stat-l">ACCURACY</div><div class="res-stat-v" id="res-acc" style="color:var(--gold)">—</div></div>
+        <div class="res-stat"><div class="res-stat-l">AVG TIME</div><div class="res-stat-v" id="res-time" style="color:var(--cyan)">—</div></div>
+      </div>
+      <div class="q-hist" id="q-hist"></div>
+      <div class="res-btns">
+        <button class="rbtn rbtn-p" onclick="retryTopic()">RETRY</button>
+        <button class="rbtn rbtn-s" onclick="exitResults()">HUB</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ FULL TEST RUNNING ════════════════ -->
+<div id="fulltest-screen" class="screen">
+  <div class="ft-run-header">
+    <div class="ft-label" id="ft-q-label">Q 1/80</div>
+    <div class="ft-progress-bar"><div class="ft-progress-fill" id="ft-prog" style="width:0%"></div></div>
+    <div class="ft-timer-big" id="ft-timer">10:00</div>
+    <div class="ft-label" id="ft-score-label">Score: 0</div>
+  </div>
+  <div class="ft-main">
+    <div class="corner c-tl"></div><div class="corner c-tr"></div>
+    <div class="corner c-bl"></div><div class="corner c-br"></div>
+    <div class="ft-question-box">
+      <div class="ft-q-meta" id="ft-q-meta">CATEGORY</div>
+      <div class="ft-q-text" id="ft-q-text">Loading...</div>
+      <input class="ft-ans-input" id="ft-ans" type="text" placeholder="—" autocomplete="off" inputmode="decimal" onkeydown="ftHandleKey(event)">
+      <button class="ft-next-btn" onclick="ftNext()">NEXT ▶</button>
+      <div class="ft-skip" onclick="ftSkip()">skip this question</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ FULL TEST RESULTS ════════════════ -->
+<div id="ft-results-screen" class="screen">
+  <div class="ftr-panel">
+    <div class="ftr-score" id="ftr-score">0</div>
+    <div class="ftr-score-label">UIL SCORE (correct×4 − wrong×1)</div>
+    <div class="ftr-grid">
+      <div class="ftr-stat"><div class="ftr-stat-l">CORRECT</div><div class="ftr-stat-v" id="ftr-correct" style="color:var(--green)">—</div></div>
+      <div class="ftr-stat"><div class="ftr-stat-l">WRONG</div><div class="ftr-stat-v" id="ftr-wrong" style="color:var(--red)">—</div></div>
+      <div class="ftr-stat"><div class="ftr-stat-l">SKIPPED</div><div class="ftr-stat-v" id="ftr-skip" style="color:var(--text2)">—</div></div>
+      <div class="ftr-stat"><div class="ftr-stat-l">AVG TIME</div><div class="ftr-stat-v" id="ftr-avgtime" style="color:var(--cyan)">—</div></div>
+    </div>
+    <div class="ftr-breakdown" id="ftr-breakdown"></div>
+    <div class="res-btns" style="margin-top:20px;">
+      <button class="rbtn rbtn-p" onclick="retryFullTest()">RETRY TEST</button>
+      <button class="rbtn rbtn-s" onclick="exitFullTest()">HUB</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// TOPICS DATA (with per-topic difficulty params)
+// difficulty: target time in ms, K factor for rating, base difficulty label
+// ═══════════════════════════════════════════════
+const T = [
+  // id, name, cat, catLabel, difficulty, kFactor, hint, gen
+  {id:'foiling',   name:'FOIL / LIOF',        cat:'mult', cl:'Multiplication', diff:'MED',  target:8000, K:220, hint:'Multiply ab×cd: ones=b×d, tens=(a×d+b×c)+carry, hundreds=a×c+carry.',gen:genMult2x2},
+  {id:'mult11',    name:'× 11 Trick',          cat:'mult', cl:'Multiplication', diff:'EASY', target:4000, K:180, hint:'Add adjacent digits moving left. 523×11: 5|7|5|3 = 5753.',gen:genMult11},
+  {id:'mult101',   name:'× 101 Trick',         cat:'mult', cl:'Multiplication', diff:'EASY', target:5000, K:180, hint:'Write last 2 digits, sum gap digits left. 438×101 = 44238.',gen:genMult101},
+  {id:'mult25',    name:'× 25 / ÷ 25',        cat:'mult', cl:'Multiplication', diff:'EASY', target:4000, K:160, hint:'×25 = ×100÷4. Divide by 4, then ×100.',gen:genMult25},
+  {id:'mult75',    name:'× 75 Trick',          cat:'mult', cl:'Multiplication', diff:'EASY', target:5000, K:170, hint:'×75 = (3/4)×100. Divide by 4, ×3, then ×100.',gen:genMult75},
+  {id:'near100',   name:'Near-100 Multiply',   cat:'mult', cl:'Multiplication', diff:'MED',  target:6000, K:200, hint:'(100±a)(100±b): adjust first number by ±b, then append a×b as last 2 digits.',gen:genNear100},
+  {id:'sq5',       name:'Squares Ending in 5', cat:'mult', cl:'Multiplication', diff:'EASY', target:3500, K:150, hint:'(a5)² = a(a+1) then 25. E.g. 85²: 8×9=72, append 25 → 7225.',gen:genSqEnds5},
+  {id:'sq5059',    name:'Squares 41–59',        cat:'mult', cl:'Multiplication', diff:'MED',  target:5000, K:180, hint:'(50±k)²: last 2 digits = k², first part = 25±k.',gen:genSq5059},
+  {id:'equidist',  name:'Equidistant Multiply', cat:'mult', cl:'Multiplication', diff:'MED',  target:5000, K:190, hint:'(n−k)(n+k) = n²−k². Square the middle, subtract the gap squared.',gen:genEquidist},
+  {id:'reverses',  name:'Multiplying Reverses', cat:'mult', cl:'Multiplication', diff:'MED',  target:7000, K:200, hint:'ab×ba: ones=a×b(units), tens=a²+b²+carry, hundreds=a×b+carry.',gen:genReverses},
+  {id:'doublehalf',name:'Double & Half',        cat:'mult', cl:'Multiplication', diff:'EASY', target:4500, K:160, hint:'Double one factor, halve the other. 15×78 = 30×39 = 1170.',gen:genDoubleHalf},
+  {id:'endin5',    name:'Both End in 5',        cat:'mult', cl:'Multiplication', diff:'MED',  target:6000, K:190, hint:'a5×b5: if a+b even → 25, if odd → 75. Rest = ab+⌊(a+b)/2⌋.',gen:genBothEnd5},
+  {id:'mixednums', name:'Mixed Number ×',       cat:'mult', cl:'Multiplication', diff:'HARD', target:9000, K:250, hint:'If fracs sum to 1 and whole parts = n: answer = n(n+1) + frac product.',gen:genMixedNums},
+  {id:'diffsq',    name:'Difference of Squares',cat:'alg',  cl:'Algebra',        diff:'EASY', target:3500, K:150, hint:'a²−b² = (a−b)(a+b). Instant factoring.',gen:genDiffSquares},
+  {id:'sumsq',     name:'Sum of Squares 101',   cat:'alg',  cl:'Algebra',        diff:'HARD', target:8000, K:240, hint:'If units_a = tens_b+1 and tens_a+units_b=10 → (d₁²+d₂²)×101.',gen:genSumSquares},
+  {id:'consqsq',   name:'Consecutive Sq Sum',   cat:'alg',  cl:'Algebra',        diff:'MED',  target:6000, K:200, hint:'n²+(n+1)² = 2n²+2n+1. If n ends in 5, use the 5s-square trick first.',gen:genConsecSq},
+  {id:'factoring', name:'Numerical Factoring',  cat:'alg',  cl:'Algebra',        diff:'MED',  target:6000, K:200, hint:'Look for common factors. ab+ac = a(b+c). Factor, then apply simpler trick.',gen:genFactoring},
+  {id:'rem4',      name:'Remainder ÷ 4, 8',    cat:'div',  cl:'Division',        diff:'EASY', target:3500, K:150, hint:'By 4: check last 2 digits. By 8: check last 3 digits.',gen:genRem4},
+  {id:'rem9',      name:'Remainder ÷ 3, 9',    cat:'div',  cl:'Division',        diff:'EASY', target:4000, K:150, hint:'Sum all digits; result mod 9 (or mod 3) is the remainder.',gen:genRem9},
+  {id:'rem11',     name:'Remainder ÷ 11',       cat:'div',  cl:'Division',        diff:'MED',  target:5000, K:180, hint:'Alternating digit sum from right: (odd pos) − (even pos) mod 11.',gen:genRem11},
+  {id:'remexpr',   name:'Remainder Expressions',cat:'div',  cl:'Division',        diff:'HARD', target:9000, K:240, hint:'Compute remainder of each operand, then apply the same algebra mod n.',gen:genRemExpr},
+  {id:'div9trick', name:'Divide by 9 Trick',    cat:'div',  cl:'Division',        diff:'MED',  target:6000, K:200, hint:'abcd÷9: hundreds=a, tens=a+b, ones=a+b+c, remainder=digit sum mod 9.',gen:genDiv9},
+  {id:'squares',   name:'Squares 1–30',         cat:'mem',  cl:'Memorization',    diff:'EASY', target:2500, K:120, hint:'Memorize 1²–30². Use equidistant trick for trickier ones.',gen:genSquares},
+  {id:'cubes',     name:'Cubes 1–15',           cat:'mem',  cl:'Memorization',    diff:'MED',  target:3500, K:150, hint:'Memorize 1³–15³ = 1 to 3375.',gen:genCubes},
+  {id:'pow2',      name:'Powers 2, 3, 5',       cat:'mem',  cl:'Memorization',    diff:'MED',  target:3500, K:150, hint:'2¹²=4096, 3⁷=2187, 5⁵=3125.',gen:genPowers},
+  {id:'fracs',     name:'Key Fractions',        cat:'mem',  cl:'Memorization',    diff:'MED',  target:4000, K:160, hint:'1/7=.142857, 1/9=.111, 1/11=.0909, 1/12=.0833, 1/8=.125.',gen:genFracs},
+  {id:'seriessum', name:'Sum of Series',        cat:'mem',  cl:'Memorization',    diff:'MED',  target:5000, K:190, hint:'Σk=n(n+1)/2, Σk²=n(n+1)(2n+1)/6, Σk³=[n(n+1)/2]².',gen:genSeries},
+  {id:'fibonacci', name:'Fibonacci Numbers',    cat:'fib',  cl:'Fibonacci',       diff:'EASY', target:3000, K:140, hint:'1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987...',gen:genFibonacci},
+  {id:'fibsums',   name:'Fibonacci Sums',       cat:'fib',  cl:'Fibonacci',       diff:'HARD', target:8000, K:230, hint:'Sum of first n Fib = F(n+2)−1. Σ(Fₙ²) = Fₙ×Fₙ₊₁.',gen:genFibSums},
+  {id:'fibprops',  name:'Fibonacci Properties', cat:'fib',  cl:'Fibonacci',       diff:'HARD', target:10000,K:260, hint:'Sum of 10 consecutive Fib = 11×F₇. Cassini: Fₙ₋₁Fₙ₊₁−Fₙ²=(−1)ⁿ.',gen:genFibProps},
+  {id:'divisors',  name:'Integral Divisors',    cat:'mem',  cl:'Memorization',    diff:'MED',  target:5000, K:190, hint:'n=p₁^a×p₂^b → #divisors=(a+1)(b+1). Sum of divisors: σ(n).',gen:genDivisors},
+  {id:'trig',      name:'Trig Values',          cat:'mem',  cl:'Memorization',    diff:'MED',  target:3500, K:160, hint:'sin30=½, sin45=√2/2, sin60=√3/2. cos reverses these.',gen:genTrig},
+  {id:'combperm',  name:'Combinations & Perms', cat:'alg',  cl:'Algebra',         diff:'MED',  target:6000, K:200, hint:'P(n,r)=n!/(n−r)!  C(n,r)=n!/[r!(n−r)!]',gen:genCombPerm},
+  {id:'gcdlcm',    name:'GCD & LCM',            cat:'misc', cl:'Miscellaneous',   diff:'MED',  target:5000, K:190, hint:'GCD×LCM = a×b. Use Euclidean algorithm for GCD.',gen:genGCDLCM},
+  {id:'bases',     name:'Changing Bases',       cat:'base', cl:'Number Bases',    diff:'HARD', target:9000, K:240, hint:'To base 10: multiply each digit by base^pos. From base 10: divide repeatedly.',gen:genBases},
+  {id:'repdec',    name:'Repeating Decimals',   cat:'misc', cl:'Miscellaneous',   diff:'HARD', target:8000, K:230, hint:'.a̅=a/9  .ab̅=ab/99  .ab̅b̅=(ab−a)/90  .abc̅=(abc−a)/990.',gen:genRepDec},
+  {id:'modular',   name:'Modular Arithmetic',   cat:'misc', cl:'Miscellaneous',   diff:'HARD', target:9000, K:250, hint:'Fermat: aᵖ⁻¹≡1(mod p). Wilson: (p−1)!≡−1(mod p). Reduce bases first.',gen:genModular},
+  {id:'factorial', name:'Factorials',           cat:'misc', cl:'Miscellaneous',   diff:'MED',  target:4000, K:170, hint:'Wilson: (p−1)!≡−1(mod p). Trailing zeros: count factors of 5.',gen:genFactorial},
+  {id:'sqroots',   name:'Square Roots',         cat:'misc', cl:'Miscellaneous',   diff:'MED',  target:4000, K:170, hint:'Approx: √(a²+r) ≈ a+r/(2a). Know √2≈1.414, √3≈1.732, √5≈2.236.',gen:genSqroots},
+  {id:'limits',    name:'Limits',               cat:'calc', cl:'Calculus',        diff:'HARD', target:10000,K:260, hint:'Substitution first. If 0/0 form, factor and cancel or apply L\'Hôpital.',gen:genLimits},
+  {id:'derivs',    name:'Derivatives',          cat:'calc', cl:'Calculus',        diff:'HARD', target:9000, K:250, hint:'d/dx[xⁿ]=nxⁿ⁻¹. Chain rule: d/dx[f(g(x))]=f\'(g(x))×g\'(x).',gen:genDerivs},
+  {id:'integrals', name:'Integration',          cat:'calc', cl:'Calculus',        diff:'HARD', target:11000,K:270, hint:'∫xⁿdx=xⁿ⁺¹/(n+1)+C. Evaluate definite integral: F(b)−F(a).',gen:genIntegrals},
+  {id:'logs',      name:'Log Rules',            cat:'alg',  cl:'Algebra',         diff:'MED',  target:6000, K:210, hint:'log(ab)=loga+logb. log(aⁿ)=n·loga. logₐa=1. Change of base.',gen:genLogs},
+  {id:'complex',   name:'Complex Numbers',      cat:'alg',  cl:'Algebra',         diff:'HARD', target:8000, K:230, hint:'i cycles: i¹=i, i²=−1, i³=−i, i⁴=1. (a+bi)(c+di)=(ac−bd)+(ad+bc)i.',gen:genComplex},
+  {id:'probsets',  name:'Probability & Sets',   cat:'misc', cl:'Miscellaneous',   diff:'MED',  target:6000, K:200, hint:'|A∪B|=|A|+|B|−|A∩B|. P(A|B)=P(A∩B)/P(B).',gen:genProbSets},
+  {id:'polygons',  name:'Polygons & Geometry',  cat:'misc', cl:'Miscellaneous',   diff:'MED',  target:5000, K:190, hint:'Interior angle=(n−2)×180/n. Diagonals=n(n−3)/2. Sum interior=(n−2)×180.',gen:genPolygons},
+];
+
+const CAT_COLORS = {mult:'#00f0ff',div:'#ff9f43',mem:'#9d4edd',misc:'#00ff88',alg:'#ffd700',calc:'#ff3366',base:'#54a0ff',fib:'#ff6b9d'};
+const RADAR_GROUPS=[
+  {l:'Multiply',ids:['foiling','mult11','mult25','near100','sq5','equidist','doublehalf']},
+  {l:'Division',ids:['rem4','rem9','rem11','div9trick','remexpr']},
+  {l:'Memory',  ids:['squares','cubes','fracs','trig','pow2']},
+  {l:'Algebra', ids:['diffsq','sumsq','logs','complex','combperm','factoring']},
+  {l:'Fibonacci',ids:['fibonacci','fibsums','fibprops']},
+  {l:'Misc',    ids:['gcdlcm','repdec','modular','probsets','polygons']},
+  {l:'Bases',   ids:['bases']},
+  {l:'Calculus',ids:['limits','derivs','integrals']},
+];
+
+// ═══════════════════════════════════════════════
+// AUTH / USER SYSTEM
+// ═══════════════════════════════════════════════
+let currentUser = null;
+
+function getDB(){return JSON.parse(localStorage.getItem('ss_db')||'{"users":{}}')}
+function saveDB(db){localStorage.setItem('ss_db',JSON.stringify(db))}
+
+function switchAuthTab(tab){
+  document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector(`.auth-tab:nth-child(${tab==='login'?1:2})`).classList.add('active');
+  document.getElementById('login-form').style.display=tab==='login'?'block':'none';
+  document.getElementById('signup-form').style.display=tab==='signup'?'block':'none';
+  document.getElementById('login-err').textContent='';
+  document.getElementById('signup-err').textContent='';
+}
+
+function doLogin(){
+  const u=document.getElementById('login-user').value.trim().toLowerCase();
+  const p=document.getElementById('login-pass').value;
+  const db=getDB();
+  if(!db.users[u]){document.getElementById('login-err').textContent='User not found.';return;}
+  if(db.users[u].pass!==btoa(p)){document.getElementById('login-err').textContent='Incorrect password.';return;}
+  loginUser(u,db.users[u]);
+}
+
+function doSignup(){
+  const u=document.getElementById('signup-user').value.trim().toLowerCase();
+  const name=document.getElementById('signup-name').value.trim()||u;
+  const p=document.getElementById('signup-pass').value;
+  const p2=document.getElementById('signup-pass2').value;
+  const err=id=>document.getElementById('signup-err').textContent=id;
+  if(!u||u.length<3){err('Username must be 3+ characters.');return;}
+  if(!p||p.length<4){err('Password must be 4+ characters.');return;}
+  if(p!==p2){err('Passwords do not match.');return;}
+  const db=getDB();
+  if(db.users[u]){err('Username taken.');return;}
+  const initRatings={};
+  T.forEach(t=>{initRatings[t.id]=1000;});
+  db.users[u]={pass:btoa(p),name,ratings:initRatings,sessions:0,joined:Date.now(),bestScore:null,avgMs:null};
+  saveDB(db);
+  loginUser(u,db.users[u]);
+}
+
+function guestLogin(){
+  const guestRatings={};T.forEach(t=>{guestRatings[t.id]=1000;});
+  currentUser={username:'guest',name:'GUEST',ratings:guestRatings,sessions:0,joined:Date.now(),bestScore:null,guest:true};
+  enterApp();
+}
+
+function loginUser(username,data){
+  currentUser={username,...data};
+  enterApp();
+}
+
+function enterApp(){
+  document.getElementById('auth-screen').classList.remove('active');
+  document.getElementById('app-screen').classList.add('active');
+  document.getElementById('user-avatar-hdr').textContent=(currentUser.name||'G').charAt(0).toUpperCase();
+  document.getElementById('user-name-hdr').textContent=(currentUser.name||'GUEST').toUpperCase();
+  renderAll();
+}
+
+function doLogout(){
+  if(!currentUser.guest){
+    const db=getDB();
+    if(db.users[currentUser.username]){
+      db.users[currentUser.username].ratings=currentUser.ratings;
+      db.users[currentUser.username].sessions=currentUser.sessions||0;
+      db.users[currentUser.username].bestScore=currentUser.bestScore||null;
+      saveDB(db);
+    }
+  }
+  currentUser=null;
+  document.getElementById('app-screen').classList.remove('active');
+  document.getElementById('auth-screen').classList.add('active');
+}
+
+function saveUserState(){
+  if(currentUser.guest)return;
+  const db=getDB();
+  if(db.users[currentUser.username]){
+    db.users[currentUser.username].ratings=currentUser.ratings;
+    db.users[currentUser.username].sessions=(currentUser.sessions||0);
+    db.users[currentUser.username].bestScore=currentUser.bestScore||null;
+    db.users[currentUser.username].avgMs=currentUser.avgMs||null;
+    saveDB(db);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════
+function showView(v){
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-pill').forEach(el=>el.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  const pills=['hub','fulltest','leaderboard'];
+  const idx=pills.indexOf(v);
+  document.querySelectorAll('.nav-pill')[idx]?.classList.add('active');
+  if(v==='hub')renderAll();
+  if(v==='leaderboard')renderLeaderboard('overall',null);
+}
+
+// ═══════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════
+function ratingColor(r){
+  if(r>=2200)return'#ff3366';
+  if(r>=1800)return'#ffd700';
+  if(r>=1400)return'#00ff88';
+  if(r>=1100)return'#00f0ff';
+  return'#7a9bbf';
+}
+
+function renderAll(){
+  renderHubStats();
+  renderRadar();
+  renderLegend();
+  renderTopics();
+}
+
+function renderHubStats(){
+  const overall=getOverallRating();
+  const sessions=(currentUser.sessions||0);
+  const best=currentUser.bestScore||'—';
+  const rated=T.filter(t=>currentUser.ratings[t.id]&&currentUser.ratings[t.id]!==1000).length;
+  document.getElementById('hub-stats-row').innerHTML=[
+    {l:'OVERALL RATING',v:overall,c:ratingColor(overall)},
+    {l:'SESSIONS',v:sessions,c:'var(--cyan)'},
+    {l:'BEST SCORE',v:best,c:'var(--gold)'},
+    {l:'TOPICS TRAINED',v:rated+'/'+T.length,c:'var(--green)'},
+  ].map(s=>`<div class="hub-stat" style="flex:1;min-width:140px;">
+    <div class="hub-stat-val" style="color:${s.c}">${s.v}</div>
+    <div class="hub-stat-label">${s.l}</div>
+  </div>`).join('');
+}
+
+function getOverallRating(){
+  const vals=T.map(t=>currentUser.ratings[t.id]||1000);
+  return Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
+}
+
+function getGroupRating(ids){
+  const v=ids.map(id=>currentUser.ratings[id]||1000);
+  return Math.round(v.reduce((a,b)=>a+b,0)/v.length);
+}
+
+function renderRadar(){
+  const svg=document.getElementById('radar-svg');
+  const cx=175,cy=170,maxR=130,N=RADAR_GROUPS.length;
+  const step=(Math.PI*2)/N;
+  let h='';
+  for(let ring=1;ring<=5;ring++){
+    const r=maxR*(ring/5);let pts='';
+    for(let i=0;i<N;i++){const a=i*step-Math.PI/2;pts+=`${cx+r*Math.cos(a)},${cy+r*Math.sin(a)} `;}
+    h+=`<polygon points="${pts}" fill="none" stroke="rgba(0,240,255,0.07)" stroke-width="1"/>`;
+    h+=`<text x="${cx+4}" y="${cy-r+10}" fill="rgba(0,240,255,0.25)" font-family="Share Tech Mono,monospace" font-size="8">${500+ring*400}</text>`;
+  }
+  for(let i=0;i<N;i++){
+    const a=i*step-Math.PI/2;
+    h+=`<line x1="${cx}" y1="${cy}" x2="${cx+maxR*Math.cos(a)}" y2="${cy+maxR*Math.sin(a)}" stroke="rgba(0,240,255,0.1)" stroke-width="1"/>`;
+  }
+  let dp='';
+  for(let i=0;i<N;i++){
+    const gr=RADAR_GROUPS[i];const rt=getGroupRating(gr.ids);
+    const f=(rt-500)/2000;const r=maxR*f;const a=i*step-Math.PI/2;
+    dp+=`${cx+r*Math.cos(a)},${cy+r*Math.sin(a)} `;
+  }
+  h+=`<polygon points="${dp}" fill="rgba(0,240,255,0.08)" stroke="#00f0ff" stroke-width="1.5"/>`;
+  for(let i=0;i<N;i++){
+    const gr=RADAR_GROUPS[i];const rt=getGroupRating(gr.ids);
+    const f=(rt-500)/2000;const r=maxR*f;const a=i*step-Math.PI/2;
+    const x=cx+r*Math.cos(a),y=cy+r*Math.sin(a);
+    h+=`<circle cx="${x}" cy="${y}" r="3.5" fill="#00f0ff" stroke="#050a14" stroke-width="1.5"/>`;
+    const lx=cx+(maxR+20)*Math.cos(a),ly=cy+(maxR+20)*Math.sin(a);
+    const anchor=lx<cx-8?'end':lx>cx+8?'start':'middle';
+    h+=`<text x="${lx}" y="${ly+4}" text-anchor="${anchor}" fill="#7a9bbf" font-family="Rajdhani,sans-serif" font-size="11" font-weight="600">${gr.l}</text>`;
+  }
+  const ovr=getOverallRating();
+  h+=`<text x="${cx}" y="${cy-2}" text-anchor="middle" fill="${ratingColor(ovr)}" font-family="Orbitron,sans-serif" font-size="16" font-weight="900">${ovr}</text>`;
+  h+=`<text x="${cx}" y="${cy+14}" text-anchor="middle" fill="rgba(0,240,255,0.4)" font-family="Share Tech Mono,monospace" font-size="8" letter-spacing="2">OVERALL</text>`;
+  svg.innerHTML=h;
+}
+
+function renderLegend(){
+  document.getElementById('radar-legend').innerHTML=RADAR_GROUPS.map(gr=>{
+    const cat=T.find(t=>t.id===gr.ids[0])?.cat||'misc';
+    const c=CAT_COLORS[cat]||'#00f0ff';
+    const rt=getGroupRating(gr.ids);
+    return `<div class="leg-item" style="--acc:${c}" onclick="filterCat('${cat}')">
+      <div class="leg-dot" style="background:${c};box-shadow:0 0 6px ${c}"></div>
+      <div class="leg-name">${gr.l}</div>
+      <div class="leg-val" style="color:${ratingColor(rt)}">${rt}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderTopics(){
+  const grid=document.getElementById('topics-grid');
+  grid.innerHTML=T.map((t,i)=>{
+    const rt=currentUser.ratings[t.id]||1000;
+    const pct=((rt-500)/2000*100).toFixed(0);
+    const c=CAT_COLORS[t.cat]||'#00f0ff';
+    const diffClass={EASY:'diff-easy',MED:'diff-med',HARD:'diff-hard'}[t.diff];
+    return `<div class="topic-card cat-${t.cat}" onclick="startTopic('${t.id}')" style="--acc:${c}">
+      <div class="tc-num">${String(i+1).padStart(2,'0')} // ${t.cl.toUpperCase()}</div>
+      <div class="tc-name">${t.name}</div>
+      <div class="tc-cat">${t.diff === 'EASY' ? '● EASY' : t.diff === 'MED' ? '◆ MEDIUM' : '▲ HARD'}</div>
+      <div class="tc-bottom">
+        <div class="tc-bar"><div class="tc-fill" style="width:${pct}%;background:linear-gradient(90deg,${c},${c}66)"></div></div>
+        <div class="tc-val" style="color:${ratingColor(rt)}">${rt}</div>
+        <div class="tc-play">▶</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterCat(cat){
+  document.querySelectorAll('.topic-card').forEach(el=>{
+    el.style.opacity=el.classList.contains('cat-'+cat)?'1':'0.25';
+    el.style.transform=el.classList.contains('cat-'+cat)?'':'scale(0.97)';
+  });
+  setTimeout(()=>{document.querySelectorAll('.topic-card').forEach(el=>{el.style.opacity='1';el.style.transform='';});},2500);
+}
+
+// ═══════════════════════════════════════════════
+// LEADERBOARD
+// ═══════════════════════════════════════════════
+let lbCurrentTab='overall';
+
+function switchLBTab(tab,el){
+  lbCurrentTab=tab;
+  document.querySelectorAll('.lb-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderLeaderboard(tab,el);
+}
+
+function renderLeaderboard(tab){
+  const db=getDB();
+  const users=Object.entries(db.users).map(([u,d])=>({u,...d}));
+  const avatarColors=['#00f0ff','#00ff88','#ffd700','#ff3366','#9d4edd','#ff9f43','#54a0ff','#ff6b9d'];
+  let sorted;
+  if(tab==='overall'){
+    sorted=users.sort((a,b)=>{
+      const ra=a.ratings?Math.round(Object.values(a.ratings).reduce((x,y)=>x+y,0)/Object.values(a.ratings).length):1000;
+      const rb=b.ratings?Math.round(Object.values(b.ratings).reduce((x,y)=>x+y,0)/Object.values(b.ratings).length):1000;
+      return rb-ra;
+    });
+  } else if(tab==='fulltest'){
+    sorted=users.filter(u=>u.bestScore!==null&&u.bestScore!==undefined).sort((a,b)=>(b.bestScore||0)-(a.bestScore||0));
+  } else {
+    sorted=users.filter(u=>u.avgMs).sort((a,b)=>(a.avgMs||99999)-(b.avgMs||99999));
+  }
+  // Add current user at end if not in list
+  if(currentUser&&!currentUser.guest&&!sorted.find(u=>u.u===currentUser.username)){
+    sorted.push({u:currentUser.username,...currentUser});
+  }
+  const tbody=document.getElementById('lb-body');
+  if(sorted.length===0){tbody.innerHTML=`<tr><td colspan="5" class="lb-td" style="text-align:center;color:var(--text2);padding:32px;">No data yet — complete sessions to appear here!</td></tr>`;return;}
+  tbody.innerHTML=sorted.slice(0,20).map((u,i)=>{
+    const rank=i+1;
+    const rankClass=rank===1?'gold':rank===2?'silver':rank===3?'bronze':'';
+    const rankStr=rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':rank;
+    const isYou=currentUser&&!currentUser.guest&&u.u===currentUser.username;
+    const rt=u.ratings?Math.round(Object.values(u.ratings).reduce((x,y)=>x+y,0)/Object.values(u.ratings).length):1000;
+    const aColor=avatarColors[(u.u||'?').charCodeAt(0)%avatarColors.length];
+    const val=tab==='overall'?rt:tab==='fulltest'?(u.bestScore??'—'):(u.avgMs?u.avgMs+'ms':'—');
+    return `<tr class="lb-row ${isYou?'lb-you':''}">
+      <td class="lb-td lb-rank ${rankClass}">${rankStr}</td>
+      <td class="lb-td"><div class="lb-name-cell">
+        <div class="lb-avatar" style="background:${aColor}">${(u.name||u.u||'?').charAt(0).toUpperCase()}</div>
+        ${u.name||u.u||'Unknown'}
+      </div></td>
+      <td class="lb-td lb-rating-cell" style="color:${ratingColor(rt)}">${val}</td>
+      <td class="lb-td lb-time-cell">${u.sessions||0} sessions</td>
+      <td class="lb-td lb-time-cell">${u.joined?new Date(u.joined).toLocaleDateString():'—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════
+// PRACTICE ENGINE
+// ═══════════════════════════════════════════════
+const QS_PER_SESSION=10;
+const MAX_TIME=35000;
+let curTopic=null,curQs=[],curIdx=0,qTimes=[],qCorrect=0,qHistory=[],timerIv=null,waiting=false,qStart=0;
+
+function startTopic(id){
+  curTopic=T.find(t=>t.id===id);if(!curTopic)return;
+  curQs=[];for(let i=0;i<QS_PER_SESSION;i++)curQs.push(curTopic.gen());
+  curIdx=0;qTimes=[];qCorrect=0;qHistory=[];waiting=false;
+  document.getElementById('p-topic').textContent=curTopic.name;
+  document.getElementById('hint-text').style.display='none';
+  document.getElementById('hint-text').textContent=curTopic.hint;
+  showScreen('practice-screen');
+  loadQ();
+}
+
+function loadQ(){
+  if(curIdx>=QS_PER_SESSION){showResults();return;}
+  const q=curQs[curIdx];
+  document.getElementById('q-num').textContent=`QUESTION ${curIdx+1} / ${QS_PER_SESSION}`;
+  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('p-sub').textContent=`Q ${curIdx+1}/${QS_PER_SESSION} — ${curTopic.cl}`;
+  document.getElementById('ans-input').value='';
+  document.getElementById('ans-input').className='ans-input';
+  document.getElementById('ans-input').disabled=false;
+  document.getElementById('feedback').textContent='';
+  document.getElementById('feedback').className='feedback';
+  document.getElementById('hint-text').style.display='none';
+  document.getElementById('prog-fill').style.width=(curIdx/QS_PER_SESSION*100)+'%';
+  document.getElementById('prog-pct').textContent=Math.round(curIdx/QS_PER_SESSION*100)+'%';
+  waiting=false;
+  updateLiveStats();
+  document.getElementById('ans-input').focus();
+  qStart=performance.now();
+  startTimer();
+}
+
+function startTimer(){
+  clearInterval(timerIv);
+  const fg=document.getElementById('t-fg');const C=251;
+  timerIv=setInterval(()=>{
+    const el=performance.now()-qStart;
+    const f=Math.min(1,el/MAX_TIME);
+    fg.style.strokeDashoffset=C*f;
+    fg.style.stroke=f<0.5?'#00f0ff':f<0.75?'#ffd700':'#ff3366';
+    document.getElementById('t-sec').textContent=(el/1000).toFixed(1);
+    document.getElementById('t-ms').textContent=Math.round(el)+'ms';
+    if(el>=MAX_TIME&&!waiting)autoSkip();
+  },50);
+}
+
+function autoSkip(){
+  clearInterval(timerIv);
+  const el=performance.now()-qStart;
+  qTimes.push(el);
+  const q=curQs[curIdx];
+  qHistory.push({q:q.q,yours:'(timeout)',correct:String(q.a),ok:false,ms:Math.round(el)});
+  document.getElementById('ans-input').className='ans-input wrong';
+  document.getElementById('feedback').textContent=`TIME UP! Answer: ${q.a}`;
+  document.getElementById('feedback').className='feedback bad';
+  document.getElementById('ans-input').disabled=true;
+  waiting=true;
+  setTimeout(()=>{curIdx++;loadQ();},1800);
+}
+
+function skipQ(){
+  if(waiting)return;
+  clearInterval(timerIv);
+  const el=performance.now()-qStart;
+  qTimes.push(el+5000); // penalize skip with +5s
+  const q=curQs[curIdx];
+  qHistory.push({q:q.q,yours:'(skip)',correct:String(q.a),ok:false,ms:Math.round(el)});
+  document.getElementById('ans-input').className='ans-input wrong';
+  document.getElementById('feedback').textContent=`Skipped — Answer: ${q.a}`;
+  document.getElementById('feedback').className='feedback bad';
+  document.getElementById('ans-input').disabled=true;
+  waiting=true;
+  setTimeout(()=>{curIdx++;loadQ();},1400);
+}
+
+function submitAnswer(){
+  if(waiting){curIdx++;loadQ();return;}
+  clearInterval(timerIv);
+  const el=performance.now()-qStart;
+  qTimes.push(el);
+  const raw=document.getElementById('ans-input').value.trim();
+  const q=curQs[curIdx];
+  const correct=String(q.a).replace(/\s/g,'');
+  const yours=raw.replace(/\s/g,'');
+  let ok=false;
+  if(yours.toLowerCase()===correct.toLowerCase())ok=true;
+  else if(!isNaN(yours)&&!isNaN(correct)&&Math.abs(parseFloat(yours)-parseFloat(correct))<0.001)ok=true;
+  else if(yours.replace(/[()]/g,'')===correct.replace(/[()]/g,''))ok=true;
+  if(ok)qCorrect++;
+  document.getElementById('ans-input').className='ans-input '+(ok?'correct':'wrong');
+  document.getElementById('feedback').textContent=ok?`✓ ${Math.round(10000/el*50)} pts`:`✗ Answer: ${q.a}`;
+  document.getElementById('feedback').className='feedback '+(ok?'ok':'bad');
+  qHistory.push({q:q.q,yours:raw||'—',correct:String(q.a),ok,ms:Math.round(el)});
+  document.getElementById('ans-input').disabled=true;
+  waiting=true;
+  updateLiveStats();
+  setTimeout(()=>{curIdx++;loadQ();},1400);
+}
+
+function handleKey(e){if(e.key==='Enter')submitAnswer();}
+
+function updateLiveStats(){
+  if(!qTimes.length)return;
+  const acc=Math.round(qCorrect/qTimes.length*100);
+  const avg=Math.round(qTimes.reduce((a,b)=>a+b,0)/qTimes.length);
+  document.getElementById('p-acc').textContent=acc+'%';
+  document.getElementById('p-avgms').textContent=avg+'ms';
+  const liveRt=calcNewRating(curTopic,currentUser.ratings[curTopic.id]||1000,qCorrect/qTimes.length,avg);
+  document.getElementById('p-rtlive').textContent=liveRt;
+}
+
+function toggleHint(){
+  const h=document.getElementById('hint-text');
+  h.style.display=h.style.display==='block'?'none':'block';
+}
+
+// ═══════════════════════════════════════════════
+// TOPIC-SPECIFIC RATING FORMULA
+// Rating is calibrated per-topic using target time and K-factor
+// score = accuracy*0.6 + speed_score*0.4
+// speed_score = 1 if avgMs <= target/3, 0 if avgMs >= target*2
+// delta = (score - 0.5) * K  (K varies by difficulty)
+// ═══════════════════════════════════════════════
+function calcNewRating(topic,oldRating,accuracy,avgMs){
+  const target=topic.target;
+  const K=topic.K;
+  // speed score: 1.0 at target/3, 0.5 at target, 0.0 at target*2.5
+  const speedScore=Math.max(0,Math.min(1,1-(avgMs-target/3)/(target*2.2)));
+  const score=accuracy*0.62+speedScore*0.38;
+  const delta=Math.round((score-0.5)*K);
+  return Math.max(500,Math.min(2500,oldRating+delta));
+}
+
+function showResults(){
+  clearInterval(timerIv);
+  const acc=qCorrect/QS_PER_SESSION;
+  const avgMs=qTimes.length?Math.round(qTimes.reduce((a,b)=>a+b,0)/qTimes.length):curTopic.target;
+  const old=currentUser.ratings[curTopic.id]||1000;
+  const newRt=calcNewRating(curTopic,old,acc,avgMs);
+  currentUser.ratings[curTopic.id]=newRt;
+  currentUser.sessions=(currentUser.sessions||0)+1;
+  // Update overall avgMs
+  const allAvg=Object.values(currentUser.ratings||{});
+  saveUserState();
+  const delta=newRt-old;
+  document.getElementById('res-topic').textContent=curTopic.name;
+  document.getElementById('res-rating').textContent=newRt;
+  document.getElementById('res-rating').style.color=ratingColor(newRt);
+  const sign=delta>=0?'+':'';
+  document.getElementById('res-delta').innerHTML=`<span style="color:${delta>=0?'var(--green)':'var(--red)'}">${sign}${delta} rating pts</span>&nbsp;&nbsp;<span style="color:var(--text2)">Target: ${Math.round(curTopic.target/1000*10)/10}s</span>`;
+  document.getElementById('res-correct').textContent=`${qCorrect}/${QS_PER_SESSION}`;
+  document.getElementById('res-acc').textContent=Math.round(acc*100)+'%';
+  document.getElementById('res-time').textContent=avgMs+'ms';
+  document.getElementById('q-hist').innerHTML=qHistory.map(h=>`
+    <div class="q-hist-row">
+      <div class="qh-dot" style="background:${h.ok?'var(--green)':'var(--red)'}"></div>
+      <div class="qh-q">${h.q.substring(0,40)}</div>
+      <div class="qh-ans" style="color:${h.ok?'var(--green)':'var(--red)'}">${h.ok?h.yours:h.correct}</div>
+      <div class="qh-t">${h.ms}ms</div>
+    </div>`).join('');
+  showScreen('results-screen');
+  showToast(`Rating: ${newRt} (${sign}${delta})`);
+}
+
+function retryTopic(){showScreen('practice-screen');startTopic(curTopic.id);}
+function exitResults(){exitPractice();}
+function exitPractice(){
+  clearInterval(timerIv);
+  hideAllOverlays();
+  renderAll();
+}
+
+// ═══════════════════════════════════════════════
+// FULL TEST ENGINE
+// ═══════════════════════════════════════════════
+let ftDiff='middle',ftQuestions=[],ftIdx=0,ftTimer=null,ftTimeLeft=600,ftResults=[],ftScore=0;
+
+function selectFTDiff(el){
+  document.querySelectorAll('.ft-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  ftDiff=el.dataset.diff;
+}
+
+function buildFullTest(diff){
+  // Pool topics by difficulty
+  const topicsToUse = diff==='middle'
+    ? T.filter(t=>t.diff!=='HARD'||['factoring','sumsq','remexpr'].includes(t.id))
+    : T;
+  const pool=[];
+  // Generate ~80 questions weighted by difficulty spread
+  while(pool.length<80){
+    const t=topicsToUse[pool.length%topicsToUse.length];
+    const q=t.gen();
+    pool.push({...q,topicId:t.id,topicName:t.name,cat:t.cat,K:t.K,target:t.target});
+  }
+  // Shuffle
+  for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
+  return pool;
+}
+
+function startFullTest(){
+  ftQuestions=buildFullTest(ftDiff);
+  ftIdx=0;ftTimeLeft=600;ftResults=[];ftScore=0;
+  showScreen('fulltest-screen');
+  ftLoadQ();
+  ftTimer=setInterval(()=>{
+    ftTimeLeft--;
+    const m=Math.floor(ftTimeLeft/60),s=ftTimeLeft%60;
+    document.getElementById('ft-timer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    if(ftTimeLeft<=60)document.getElementById('ft-timer').style.color='var(--red)';
+    if(ftTimeLeft<=0){clearInterval(ftTimer);ftShowResults();}
+  },1000);
+}
+
+function ftLoadQ(){
+  if(ftIdx>=ftQuestions.length){clearInterval(ftTimer);ftShowResults();return;}
+  const q=ftQuestions[ftIdx];
+  document.getElementById('ft-q-meta').textContent=`Q ${ftIdx+1}/80  —  ${q.topicName.toUpperCase()}`;
+  document.getElementById('ft-q-text').textContent=q.q;
+  document.getElementById('ft-ans').value='';
+  document.getElementById('ft-ans').style.borderColor='var(--border)';
+  document.getElementById('ft-prog').style.width=(ftIdx/80*100)+'%';
+  document.getElementById('ft-q-label').textContent=`Q ${ftIdx+1}/80`;
+  document.getElementById('ft-score-label').textContent=`Score: ${ftScore}`;
+  document.getElementById('ft-ans').focus();
+}
+
+function ftHandleKey(e){if(e.key==='Enter')ftNext();}
+
+function ftNext(){
+  const raw=document.getElementById('ft-ans').value.trim();
+  const q=ftQuestions[ftIdx];
+  if(!raw){ftSkip();return;}
+  const correct=String(q.a).replace(/\s/g,'');
+  const yours=raw.replace(/\s/g,'');
+  let ok=false;
+  if(yours.toLowerCase()===correct.toLowerCase())ok=true;
+  else if(!isNaN(yours)&&!isNaN(correct)&&Math.abs(parseFloat(yours)-parseFloat(correct))<0.001)ok=true;
+  ftResults.push({...q,yours:raw,ok,answered:true});
+  ftScore+=ok?4:-1;
+  document.getElementById('ft-ans').style.borderColor=ok?'var(--green)':'var(--red)';
+  document.getElementById('ft-score-label').textContent=`Score: ${ftScore}`;
+  setTimeout(()=>{ftIdx++;ftLoadQ();},300);
+}
+
+function ftSkip(){
+  const q=ftQuestions[ftIdx];
+  ftResults.push({...q,yours:'',ok:false,answered:false});
+  ftIdx++;ftLoadQ();
+}
+
+function ftShowResults(){
+  clearInterval(ftTimer);
+  const correct=ftResults.filter(r=>r.ok).length;
+  const wrong=ftResults.filter(r=>r.answered&&!r.ok).length;
+  const skipped=ftResults.filter(r=>!r.answered).length;
+  const answered=ftResults.filter(r=>r.answered);
+  const avgMs=answered.length?0:0; // no per-q timing in full test
+  const score=correct*4-wrong;
+  if(!currentUser.bestScore||score>currentUser.bestScore){currentUser.bestScore=score;}
+  currentUser.sessions=(currentUser.sessions||0)+1;
+  // Update ratings for each topic based on full test performance
+  const topicPerf={};
+  ftResults.forEach(r=>{
+    if(!topicPerf[r.topicId])topicPerf[r.topicId]={correct:0,total:0};
+    topicPerf[r.topicId].total++;
+    if(r.ok)topicPerf[r.topicId].correct++;
+  });
+  Object.entries(topicPerf).forEach(([id,perf])=>{
+    const topic=T.find(t=>t.id===id);if(!topic)return;
+    const acc=perf.correct/perf.total;
+    const old=currentUser.ratings[id]||1000;
+    // Full test rating uses topic target as estimated time
+    currentUser.ratings[id]=calcNewRating(topic,old,acc,topic.target*1.2);
+  });
+  saveUserState();
+  document.getElementById('ftr-score').textContent=score;
+  document.getElementById('ftr-correct').textContent=correct;
+  document.getElementById('ftr-wrong').textContent=wrong;
+  document.getElementById('ftr-skip').textContent=skipped;
+  document.getElementById('ftr-avgtime').textContent=answered.length?(Math.round(600000/80/1000*10)/10)+'s avg':'—';
+  document.getElementById('ftr-breakdown').innerHTML=ftResults.map((r,i)=>`
+    <div class="ftr-br-row">
+      <div class="ftr-br-n" style="color:${r.ok?'var(--green)':r.answered?'var(--red)':'var(--text2)'}">${i+1}</div>
+      <div class="ftr-br-q">${r.q.substring(0,45)}</div>
+      <div class="ftr-br-ans" style="color:${r.ok?'var(--green)':r.answered?'var(--red)':'var(--text2)'}">
+        ${r.ok?'✓ '+r.yours:r.answered?'✗ '+r.a:'—'}
+      </div>
+    </div>`).join('');
+  showScreen('ft-results-screen');
+  showToast(`Full Test Complete! Score: ${score}`);
+}
+
+function retryFullTest(){hideAllOverlays();startFullTest();}
+function exitFullTest(){hideAllOverlays();renderAll();}
+
+// ═══════════════════════════════════════════════
+// SCREEN MANAGEMENT
+// ═══════════════════════════════════════════════
+function showScreen(id){
+  ['practice-screen','results-screen','fulltest-screen','ft-results-screen'].forEach(s=>{
+    document.getElementById(s).classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+}
+function hideAllOverlays(){
+  ['practice-screen','results-screen','fulltest-screen','ft-results-screen'].forEach(s=>{
+    document.getElementById(s).classList.remove('active');
+  });
+}
+
+// ═══════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ═══════════════════════════════════════════════
+// QUESTION GENERATORS
+// ═══════════════════════════════════════════════
+function r(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function pick(a){return a[r(0,a.length-1)];}
+function gcd(a,b){return b===0?a:gcd(b,a%b);}
+
+function genMult2x2(){const a=r(12,99),b=r(12,99);return{q:`${a} × ${b} = `,a:a*b};}
+function genMult11(){
+  const f=[
+    ()=>{const a=r(12,999);return{q:`${a} × 11 = `,a:a*11};},
+    ()=>{const a=r(12,99);return{q:`11 × ${a} = `,a:a*11};},
+    ()=>{const a=r(12,99)*11;return{q:`${a} ÷ 11 = `,a:a/11};}
+  ];
+  return pick(f)();
+}
+function genMult101(){const a=r(12,999);return{q:`${a} × 101 = `,a:a*101};}
+function genMult25(){
+  const f=[
+    ()=>{const a=r(2,40)*4;return{q:`${a} × 25 = `,a:a*25};},
+    ()=>{const a=r(2,40)*4;return{q:`25 × ${a} = `,a:a*25};},
+    ()=>{const a=r(2,30)*4;return{q:`${a} ÷ 25 = `,a:a/25};}
+  ];return pick(f)();
+}
+function genMult75(){const a=r(2,20)*4;return{q:`${a} × 75 = `,a:a*75};}
+function genNear100(){
+  const t=r(0,2);
+  if(t===0){const a=r(91,109),b=r(91,109);return{q:`${a} × ${b} = `,a:a*b};}
+  if(t===1){const a=r(991,1009),b=r(991,1009);return{q:`${a} × ${b} = `,a:a*b};}
+  const a=r(91,109),b=r(91,109);return{q:`${a} × ${b} = `,a:a*b};
+}
+function genSqEnds5(){const a=pick([15,25,35,45,55,65,75,85,95,105,115]);return{q:`${a}² = `,a:a*a};}
+function genSq5059(){const a=r(41,69);return{q:`${a}² = `,a:a*a};}
+function genEquidist(){
+  const mid=pick([25,35,45,55,65,75,85,95]);const d=pick([1,2,3,4,5]);
+  return{q:`${mid-d} × ${mid+d} = `,a:(mid-d)*(mid+d)};
+}
+function genReverses(){
+  const a=r(1,9),b=r(1,9);if(a===b)return genReverses();
+  const n1=a*10+b,n2=b*10+a;return{q:`${n1} × ${n2} = `,a:n1*n2};
+}
+function genDoubleHalf(){
+  const a=pick([15,25,35,14,16,18,24,26]);const b=r(11,99);return{q:`${a} × ${b} = `,a:a*b};
+}
+function genBothEnd5(){
+  const a=pick([15,25,35,45,55,65,75,85,95]);const b=pick([15,25,35,45,55,65,75,85,95]);
+  return{q:`${a} × ${b} = `,a:a*b};
+}
+function genMixedNums(){
+  const n=r(3,12);const d=pick([3,4,5,6,7,8]);const p=r(1,d-1);const q2=d-p;
+  const num=n*(n+1)*(d*d)+(p*q2);const den=d*d;const g=gcd(num,den);
+  if(den/g===1)return{q:`${n} ${p}/${d} × ${n} ${q2}/${d} = `,a:num/g};
+  return{q:`${n} ${p}/${d} × ${n} ${q2}/${d} = `,a:`${num/g}/${den/g}`};
+}
+function genDiffSquares(){
+  const a=r(10,99),d=pick([1,2,3,4,5]);const b=a+d;
+  return r(0,1)?{q:`${b}² − ${a}² = `,a:b*b-a*a}:{q:`${a}² − ${b}² = `,a:a*a-b*b};
+}
+function genSumSquares(){
+  const pairs=[[72,13],[82,12],[93,21],[45,46],[55,56],[36,57],[37,67],[62,48],[92,31],[83,22]];
+  const [a,b]=pick(pairs);return{q:`${a}² + ${b}² = `,a:a*a+b*b};
+}
+function genConsecSq(){const a=pick([12,15,20,25,30,35,40,45]);return{q:`${a}² + ${a+1}² = `,a:a*a+(a+1)*(a+1)};}
+function genFactoring(){
+  const k=r(2,15),a=r(2,9),b=r(2,9);
+  return{q:`${k*a} + ${k*b} = `,a:k*(a+b)};
+}
+function genRem4(){const n=r(1000,99999);return{q:`${n} ÷ 4, remainder = `,a:n%4};}
+function genRem9(){const n=r(1000,99999);const d=r(0,1)?9:3;return{q:`${n} ÷ ${d}, remainder = `,a:n%d};}
+function genRem11(){const n=r(1000,99999);return{q:`${n} ÷ 11, remainder = `,a:n%11};}
+function genRemExpr(){
+  const a=r(10,50),b=r(2,9),c=r(2,9);const d=pick([3,4,6,7,8,9]);
+  const val=a*b+c;return{q:`(${a}×${b}+${c}) ÷ ${d}, remainder = `,a:((val%d)+d)%d};
+}
+function genDiv9(){const a=r(11,99)*9;return{q:`${a} ÷ 9 = `,a:a/9};}
+function genSquares(){const a=r(1,30);return{q:`${a}² = `,a:a*a};}
+function genCubes(){const a=r(1,15);return{q:`${a}³ = `,a:a*a*a};}
+function genPowers(){
+  const opts=[[2,r(1,12)],[3,r(1,7)],[5,r(1,5)]];const [b,e]=pick(opts);
+  return{q:`${b}^${e} = `,a:Math.pow(b,e)};
+}
+const FRACS=[
+  [1,7,'0.142857'],[2,7,'0.285714'],[3,7,'0.428571'],[4,7,'0.571428'],[5,7,'0.714285'],[6,7,'0.857142'],
+  [1,9,'0.1̄'],[1,11,'0.09̄'],[1,6,'0.16̄'],[5,6,'0.83̄'],
+  [1,8,'0.125'],[3,8,'0.375'],[5,8,'0.625'],[7,8,'0.875'],
+  [1,12,'0.083̄'],[5,12,'0.416̄']
+];
+function genFracs(){const [n,d,dec]=pick(FRACS);return{q:`${n}/${d} as decimal = `,a:dec};}
+function genSeries(){
+  const n=r(5,20);const t=r(0,2);
+  if(t===0)return{q:`1+2+…+${n} = `,a:n*(n+1)/2};
+  if(t===1)return{q:`1²+2²+…+${n}² = `,a:n*(n+1)*(2*n+1)/6};
+  const s=n*(n+1)/2;return{q:`1³+2³+…+${n}³ = `,a:s*s};
+}
+const FIB=[1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584];
+function genFibonacci(){const i=r(2,14);return{q:`Fibonacci F(${i+1}) = `,a:FIB[i]};}
+function genFibSums(){const n=r(4,10);return{q:`Sum of first ${n} Fibonacci = `,a:FIB.slice(0,n).reduce((a,b)=>a+b,0)};}
+function genFibProps(){
+  // Sum of 10 consecutive starting at F(n) = 11 * F(n+6)
+  const n=r(1,8);
+  const s=FIB.slice(n-1,n+9).reduce((a,b)=>a+b,0);
+  return{q:`Sum F(${n}) through F(${n+9}) = `,a:s};
+}
+function genDivisors(){
+  const n=r(2,100);let c=0;for(let i=1;i<=n;i++)if(n%i===0)c++;
+  return{q:`Number of divisors of ${n} = `,a:c};
+}
+const TRIG_D=[
+  ['sin(30°)','1/2'],['sin(45°)','√2/2'],['sin(60°)','√3/2'],
+  ['cos(30°)','√3/2'],['cos(45°)','√2/2'],['cos(60°)','1/2'],
+  ['tan(45°)','1'],['tan(30°)','√3/3'],['tan(60°)','√3'],
+  ['sin(0°)','0'],['cos(0°)','1'],['sin(90°)','1'],['cos(90°)','0'],
+];
+function genTrig(){const [q,a]=pick(TRIG_D);return{q:`${q} = `,a};}
+function genCombPerm(){
+  const n=r(4,10),r2=r(2,Math.min(n,5));
+  if(r(0,1)){let p=1;for(let i=n;i>n-r2;i--)p*=i;return{q:`P(${n},${r2}) = `,a:p};}
+  let p=1;for(let i=n;i>n-r2;i--)p*=i;let f=1;for(let i=1;i<=r2;i++)f*=i;
+  return{q:`C(${n},${r2}) = `,a:p/f};
+}
+function genGCDLCM(){
+  const a=r(2,30)*pick([2,3,4,5]),b=r(2,30)*pick([2,3,4,5]),g=gcd(a,b);
+  return r(0,1)?{q:`GCD(${a},${b}) = `,a:g}:{q:`LCM(${a},${b}) = `,a:a*b/g};
+}
+function genBases(){
+  const t=r(0,2);
+  if(t===0){const n=r(5,255);return{q:`${n}₁₀ in base 2 = `,a:n.toString(2)};}
+  if(t===1){const n=r(5,255);return{q:`${n}₁₀ in base 8 = `,a:n.toString(8)};}
+  const n=r(5,255);return{q:`${n}₁₀ in base 16 = `,a:n.toString(16).toUpperCase()};
+}
+function genRepDec(){
+  const t=r(0,2);
+  if(t===0){const a=r(1,8);return{q:`.${a}${a}${a}... as fraction = `,a:`${a}/9`};}
+  if(t===1){const ab=r(10,98);return{q:`.${Math.floor(ab/10)}${ab%10}${Math.floor(ab/10)}${ab%10}... = fraction `,a:`${ab}/99`};}
+  const a=r(1,9),b=r(1,9);return{q:`.${a}${b}${b}${b}... = fraction `,a:`${a*9+b-a}/90`};
+}
+function genModular(){
+  const a=r(2,20),m=r(2,12),e=r(2,8);
+  const v=((val)=>val%m)(Math.pow(a,e));
+  return{q:`${a}^${e} mod ${m} = `,a:((v%m)+m)%m};
+}
+function genFactorial(){
+  const n=r(3,10);let f=1;for(let i=1;i<=n;i++)f*=i;return{q:`${n}! = `,a:f};
+}
+function genSqroots(){const n=r(1,20);return{q:`√${n*n} = `,a:n};}
+function genLimits(){
+  const a=r(1,10);
+  return{q:`lim(x→${a}) (x²−${a*a})/(x−${a}) = `,a:2*a};
+}
+function genDerivs(){
+  const n=r(2,8),c=r(1,9),x=r(1,5);
+  const t=r(0,2);
+  if(t===0)return{q:`d/dx[${c}x^${n}] at x=1 = `,a:c*n};
+  if(t===1)return{q:`d/dx[x^${n}] at x=${x} = `,a:n*Math.pow(x,n-1)};
+  return{q:`d/dx[${c}x² + ${n}x] at x=${x} = `,a:2*c*x+n};
+}
+function genIntegrals(){
+  const n=r(1,4),b=r(2,6);
+  const val=(Math.pow(b,n+1))/(n+1);
+  if(Number.isInteger(val))return{q:`∫₀^${b} x^${n} dx = `,a:val};
+  return{q:`∫₀^${b} x dx = `,a:b*b/2};
+}
+function genLogs(){
+  const base=pick([2,3,10]);const exp=r(1,6);const val=Math.pow(base,exp);
+  return{q:`log_${base}(${val}) = `,a:exp};
+}
+function genComplex(){
+  const t=r(0,2);
+  if(t===0){const n=r(0,3);const v=['1','i','-1','-i'];return{q:`i^${n+4*r(0,3)} = `,a:v[n]};}
+  if(t===1){const a=r(1,9),b=r(1,9),c=r(1,9),d2=r(1,9);return{q:`(${a}+${b}i)(${c}+${d2}i) real part = `,a:a*c-b*d2};}
+  const a=r(1,9),b=r(1,9);return{q:`|${a}+${b}i| = `,a:`√${a*a+b*b}`};
+}
+function genProbSets(){
+  const a=r(5,20),b=r(5,20),both=r(1,Math.min(a,b)-1);
+  return{q:`|A|=${a}, |B|=${b}, |A∩B|=${both}. |A∪B| = `,a:a+b-both};
+}
+function genPolygons(){
+  const n=r(5,12);
+  return r(0,1)?{q:`Interior angle of regular ${n}-gon = `,a:Math.round((n-2)*180/n)}:{q:`Diagonals of ${n}-gon = `,a:n*(n-3)/2};
+}
+</script>
+</body>
+>>>>>>> fd969d5abca7d23d66fed0a260a60cea3fd01490
 </html>
